@@ -59,13 +59,13 @@ const onCtaLeave = () => {
   ctaTransform.value = "translate(0px, 0px)";
 };
 
-// Transmission log — fake stream of comet pings
+// Transmission log — real stream of comet pings
 const log = computed(() => [
-  { t: "T+00:00", body: "Carrier locked · 星街すいせい" },
-  { t: "T+00:14", body: "Auxiliary signal acquired · 伊咲リオナ" },
-  { t: "T+02:31", body: "Side-band — 木陰つむぎ · faint, holding" },
-  { t: "T+04:47", body: "Audio bed engaged · Kaiki Deishu's theme" },
-  { t: "T+07:02", body: "Reading Alicia. Quiet, never on emotion." },
+  { t: "T+00:00", body: "Carrier locked · 星街すいせい — Sui-chan wa, kyou mo kawaii" },
+  { t: "T+00:14", body: "Hoshiyomi signal confirmed · 2.88M subscribers · Budokan achieved Feb 2025" },
+  { t: "T+02:31", body: "Auxiliary signal · 響咲リオナ — FLOW GLOW leader · 響咲連合 standing by" },
+  { t: "T+04:47", body: "Side-band · 紡木こかげ — Komorebito holding · VSPO! Immortal III VALORANT" },
+  { t: "T+07:02", body: "Audio bed engaged · Kaiki Deishu's theme · signal nominal" },
 ]);
 
 // Two stat cards
@@ -78,21 +78,21 @@ const stats = [
 const manifest = [
   {
     handle: "星街すいせい",
-    role: "Comet · primary",
+    role: "Comet · hololive 0th gen",
     glyph: "α",
-    line: "Apologise to no one. Shine alone. Sing louder.",
+    line: "Drew her own model. Got rejected once. Never took a lesson. Budokan, Feb 2025. Hoshiyomi.",
   },
   {
-    handle: "伊咲リオナ",
-    role: "Gremlin · sustainer",
+    handle: "響咲リオナ",
+    role: "FLOW GLOW leader · DEV_IS",
     glyph: "β",
-    line: "Show up. Then show up again. Then again.",
+    line: "I'll do what I like and live how I want to. Cool face, warm core. 響咲連合.",
   },
   {
-    handle: "木陰つむぎ",
-    role: "Office cat · ambient",
+    handle: "紡木こかげ",
+    role: "FPS · VSPO!",
     glyph: "γ",
-    line: "Quiet builds compound. So do quiet streams.",
+    line: "Genuine and tearful. 12 years of FPS. Happiest eating while watching anime. Komorebito.",
   },
 ];
 
