@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /sui
+
+Sitemap: https://rayinailham.dev/sitemap.xml
