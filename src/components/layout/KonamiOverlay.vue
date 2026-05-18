@@ -104,8 +104,12 @@ onBeforeUnmount(() => {
         class="relative w-full max-w-md border border-line bg-bg-elevated p-10"
         @click.stop
       >
-        <div class="font-mono text-mono-xs uppercase text-ink-subtle">
+        <div class="flex items-center justify-between font-mono text-mono-xs uppercase text-ink-subtle">
           <span>// transmission · 04</span>
+          <span class="inline-flex items-center gap-1.5">
+            <span class="h-1 w-1 rounded-full bg-accent-warm" aria-hidden="true" />
+            <span class="text-ink-faint">SIDE-B</span>
+          </span>
         </div>
 
         <p class="mt-6 font-mono text-mono-sm uppercase tracking-[0.32em] text-ink-faint">
@@ -116,10 +120,11 @@ onBeforeUnmount(() => {
           id="konami-title"
           class="mt-6 font-display text-heading-lg text-ink-primary"
         >
-          Hoshiyomi · Isaki Rengo detected.
+          <span class="italic-accent">Hoshiyomi</span> · Isaki Rengo · Tsumugi-gumi detected.
         </h2>
         <p class="mt-3 max-w-[36ch] text-body-md text-ink-muted">
-          The comet, the gremlin, and the streams that keep the build green.
+          The comet, the gremlin, the office cat — and somewhere
+          <span class="italic-accent text-ink-primary">Frostlass</span> running a 6% win-rate build.
         </p>
 
         <div
@@ -127,7 +132,7 @@ onBeforeUnmount(() => {
         >
           <span class="inline-flex items-center gap-2">
             <span class="h-1 w-1 rounded-full bg-accent-warm" aria-hidden="true" />
-            SUI · RIONA
+            SUI · RIONA · TSUMUGI
           </span>
           <button
             type="button"

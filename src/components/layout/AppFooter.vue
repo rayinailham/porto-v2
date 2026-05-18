@@ -118,8 +118,16 @@ const meta = [
       >
         <span>&copy; {{ year }} · Rayina Ilham · All rights reserved</span>
         <span class="text-ink-faint">
-          Vue 3 / Vite · GSAP · Lenis · set in Inter &amp; JetBrains Mono
+          Vue 3 / Vite · GSAP · Lenis · set in Inter, Fraunces &amp; JetBrains Mono
         </span>
+      </div>
+
+      <!-- Side-B colophon line — playful, almost-invisible -->
+      <div
+        class="mt-3 flex flex-col gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint md:flex-row md:items-center md:justify-between"
+      >
+        <span>// off-clock · carian sorcery sword + parry, milady at the hip</span>
+        <span>signal &mdash; kaiki deishu's theme on loop</span>
       </div>
     </div>
   </footer>

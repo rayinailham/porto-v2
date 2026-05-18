@@ -186,6 +186,8 @@ useSplitText(headline);
             <span class="text-ink-faint">×</span>
             <span>mydoomscroll — OLED UX</span>
             <span class="text-ink-faint">×</span>
+            <span class="text-ink-subtle">Side B — Carian sorcery + parry</span>
+            <span class="text-ink-faint">×</span>
           </span>
         </template>
       </div>
