@@ -59,13 +59,13 @@ const onCtaLeave = () => {
   ctaTransform.value = "translate(0px, 0px)";
 };
 
-// Transmission log — real stream of comet pings
+// Transmission log — intercepted notes, not a status report
 const log = computed(() => [
-  { t: "T+00:00", body: "Carrier locked · 星街すいせい — Sui-chan wa, kyou mo kawaii" },
-  { t: "T+00:14", body: "Hoshiyomi signal confirmed · 2.88M subscribers · Budokan achieved Feb 2025" },
-  { t: "T+02:31", body: "Auxiliary signal · 響咲リオナ — FLOW GLOW leader · 響咲連合 standing by" },
-  { t: "T+04:47", body: "Side-band · 紡木こかげ — Komorebito holding · VSPO! Immortal III VALORANT" },
-  { t: "T+07:02", body: "Audio bed engaged · Kaiki Deishu's theme · signal nominal" },
+  { t: "T+00:00", body: "Carrier locked · 星街すいせい · she said kyou mo kawaii and meant every word" },
+  { t: "T+00:14", body: "Six years to Budokan. Drew the model herself. Hoshiyomi still watching." },
+  { t: "T+02:31", body: "響咲リオナ online · walked in like she already knew the setlist · 響咲連合 assembled" },
+  { t: "T+04:47", body: "紡木こかげ · 40 hours on Getting Over It · came back the next day · Komorebito holding" },
+  { t: "T+07:02", body: "Kaiki Deishu's theme on loop · this is where the build session starts" },
 ]);
 
 // Two stat cards
@@ -80,19 +80,19 @@ const manifest = [
     handle: "星街すいせい",
     role: "Comet · hololive 0th gen",
     glyph: "α",
-    line: "Drew her own model. Got rejected once. Never took a lesson. Budokan, Feb 2025. Hoshiyomi.",
+    line: "Built her own model from scratch. Got rejected. Kept going anyway. Six years later — Budokan. Hoshiyomi know.",
   },
   {
     handle: "響咲リオナ",
     role: "FLOW GLOW leader · DEV_IS",
     glyph: "β",
-    line: "I'll do what I like and live how I want to. Cool face, warm core. 響咲連合.",
+    line: "Walks in cool, melts for small animals. Shonen manga reader. Raps. Leads. Shows up every time. 響咲連合.",
   },
   {
     handle: "紡木こかげ",
     role: "FPS · VSPO!",
     glyph: "γ",
-    line: "Genuine and tearful. 12 years of FPS. Happiest eating while watching anime. Komorebito.",
+    line: "Cried on debut. Spent 40 hours on Getting Over It. Came back the next day and cleared it. Komorebito.",
   },
 ];
 
@@ -201,9 +201,9 @@ const goHome = () => router.push("/");
         <!-- Right rail — asymmetric meta column, sits lower than headline -->
         <aside class="col-span-12 mt-2 flex flex-col gap-4 lg:col-span-4 lg:mt-32">
           <p class="max-w-[34ch] text-[15px] leading-[1.65] text-white/65">
-            And for Riona, who reminded me you can build anything if you keep
-            showing up. <span class="text-white/85">Code better when listening to streams.</span>
-            Always.
+            For Riona, who shows up every stream like she has something to prove.
+            For Kokage, who cried on debut and came back the next day.
+            <span class="text-white/85">I code better with streams on. That's just true.</span>
           </p>
           <div class="mt-6 h-px w-12 bg-gradient-to-r from-sui-cyan via-sui-warm to-transparent" />
         </aside>
@@ -374,7 +374,7 @@ const goHome = () => router.push("/");
           </article>
         </section>
 
-        <!-- Sign-off — magnetic CTA, double-bezel pill -->
+          <!-- Sign-off — magnetic CTA, double-bezel pill -->
         <div class="col-span-12 mt-20 flex flex-col items-start gap-5 md:mt-28">
           <span
             class="font-mono text-[10px] uppercase tracking-[0.3em] text-white/40"
