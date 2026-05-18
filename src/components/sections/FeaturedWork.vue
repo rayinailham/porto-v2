@@ -2,7 +2,7 @@
 import { featured } from "@/data/portfolio";
 import MonoChip from "@/components/ui/MonoChip.vue";
 import StatusDot from "@/components/ui/StatusDot.vue";
-import FeaturedCard from "@/components/sections/FeaturedCard.vue";
+import FeaturedReel from "@/components/sections/FeaturedReel.vue";
 
 const large = featured.filter((f) => f.size !== "sm");
 const thumbs = featured.filter((f) => f.size === "sm");
@@ -19,72 +19,55 @@ const statusColor = (s: "active" | "shipped" | "ongoing") =>
 <template>
   <section
     id="work"
-    class="relative border-b border-line py-section"
-    data-reveal-group
+    class="relative border-b border-line"
     aria-labelledby="work-heading"
   >
-    <div class="shell-wide">
-      <!-- Section marker -->
-      <div
-        class="reveal-init flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle"
-      >
-        <span class="inline-flex items-center gap-3">
-          <span class="text-ink-faint">03</span>
-          <span>Selected work · 2024–2026</span>
-        </span>
-        <span class="hidden sm:inline">{{ totalLarge }} primary, {{ thumbs.length }} secondary</span>
-      </div>
-
-      <!-- Heading row -->
-      <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
-        <h2
-          id="work-heading"
-          class="reveal-init col-span-12 max-w-[22ch] font-display text-display-md text-ink-primary lg:col-span-8 track-snug"
-          data-split="words"
+    <!-- Heading block -->
+    <div class="pt-section" data-reveal-group>
+      <div class="shell-wide">
+        <!-- Section marker -->
+        <div
+          class="reveal-init flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle"
         >
-          Selected work, <span class="italic-accent text-ink-muted">receipts attached.</span>
-        </h2>
-        <p class="reveal-init col-span-12 max-w-[40ch] text-body-md text-ink-muted lg:col-span-4 lg:text-right">
-          Slice of the public stuff — picked for impact, architecture depth,
-          and the bits I'd still defend in code review.
-        </p>
+          <span class="inline-flex items-center gap-3">
+            <span class="text-ink-faint">03</span>
+            <span>Selected work · 2024–2026</span>
+          </span>
+          <span class="hidden sm:inline">
+            {{ totalLarge }} primary, {{ thumbs.length }} secondary
+            <span class="ml-3 hidden text-ink-faint lg:inline">// scroll to traverse</span>
+          </span>
+        </div>
+
+        <!-- Heading row -->
+        <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
+          <h2
+            id="work-heading"
+            class="reveal-init col-span-12 max-w-[22ch] font-display text-display-md text-ink-primary lg:col-span-8 track-snug"
+            data-split="words"
+          >
+            Selected work, <span class="italic-accent text-ink-muted">receipts attached.</span>
+          </h2>
+          <p class="reveal-init col-span-12 max-w-[40ch] text-body-md text-ink-muted lg:col-span-4 lg:text-right">
+            Slice of the public stuff — picked for impact, architecture depth,
+            and the bits I'd still defend in code review.
+          </p>
+        </div>
       </div>
+    </div>
 
-      <!-- Featured grid: hairline-divided 2-col layout -->
-      <div
-        class="reveal-init mt-section-sm grid grid-cols-1 border-t border-line lg:grid-cols-12"
-      >
-        <FeaturedCard
-          :project="large[0]"
-          :index="'01'"
-          :total="totalLarge"
-          class="lg:col-span-7 border-b border-line"
-          :status-label="statusLabel(large[0].status)"
-          :status-color="statusColor(large[0].status)"
-        />
+    <!-- Pinned horizontal reel (desktop) / vertical stack (mobile + reduced-motion) -->
+    <FeaturedReel
+      :projects="large"
+      :total-label="totalLarge"
+      :status-label="statusLabel"
+      :status-color="statusColor"
+      class="mt-section-sm border-y border-line"
+    />
 
-        <FeaturedCard
-          :project="large[1]"
-          :index="'02'"
-          :total="totalLarge"
-          tall
-          class="lg:col-span-5 lg:row-span-2 border-b border-line lg:border-b-0"
-          :status-label="statusLabel(large[1].status)"
-          :status-color="statusColor(large[1].status)"
-        />
-
-        <FeaturedCard
-          :project="large[2]"
-          :index="'03'"
-          :total="totalLarge"
-          class="lg:col-span-7 border-b border-line"
-          :status-label="statusLabel(large[2].status)"
-          :status-color="statusColor(large[2].status)"
-        />
-      </div>
-
-      <!-- Thumbnails: secondary works -->
-      <div class="mt-section-sm" data-reveal-group>
+    <!-- Thumbnails: secondary works -->
+    <div class="py-section" data-reveal-group>
+      <div class="shell-wide">
         <div
           class="reveal-init flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle"
         >
