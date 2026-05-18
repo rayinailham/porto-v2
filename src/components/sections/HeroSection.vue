@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import { ref } from "vue";
 import StatusDot from "@/components/ui/StatusDot.vue";
 import MonoChip from "@/components/ui/MonoChip.vue";
-import { useSplitText } from "@/composables/useSplitText";
-
-const headline = ref<HTMLElement | null>(null);
-useSplitText(headline);
 </script>
 
 <template>
@@ -57,7 +52,6 @@ useSplitText(headline);
 
         <!-- Headline -->
         <h1
-          ref="headline"
           class="col-span-12 lg:col-span-9"
         >
           <span class="block font-mono text-mono-xs uppercase text-ink-subtle reveal-init">

@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { useReveal } from "@/composables/useReveal";
+import { useTypography } from "@/composables/useTypography";
 import StatusDot from "@/components/ui/StatusDot.vue";
 import AppButton from "@/components/ui/AppButton.vue";
 
 const root = ref<HTMLElement | null>(null);
-useReveal(root);
+useTypography(root);
 
 onMounted(() => {
   document.title = "Contact · Rayina Ilham";
@@ -68,10 +68,12 @@ const channels: Channel[] = [
         </div>
 
         <h1
-          class="mt-12 max-w-[18ch] font-display text-display-xl text-ink-primary lg:mt-20"
+          class="mt-12 max-w-[18ch] font-display text-display-xl text-ink-primary track-tight lg:mt-20"
         >
-          <span class="block type-reveal">Hireable.</span>
-          <span class="block type-reveal text-ink-muted">Let's talk.</span>
+          <span class="block" data-split="words">Hireable.</span>
+          <span class="block text-ink-muted" data-split="words">
+            <span class="italic-accent text-ink-muted">Let's talk.</span>
+          </span>
         </h1>
         <p class="reveal-init mt-10 max-w-[52ch] text-body-lg text-ink-muted">
           Three channels, no form. Pick whichever lines up with your context — I

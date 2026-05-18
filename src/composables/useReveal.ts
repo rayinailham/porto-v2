@@ -2,10 +2,12 @@
  * Swiss editorial scroll-reveal — minimal, crisp, no blur.
  * - Honors prefers-reduced-motion
  * - Targets `.reveal-init` for fade+lift, `.type-reveal` for clip-path sweep
+ * - Detects already-in-viewport elements at mount and plays them immediately
+ *   (avoids the stuck-invisible-above-the-fold case).
  */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { onMounted, onBeforeUnmount, type Ref } from "vue";
+import { onMounted, onBeforeUnmount, nextTick, type Ref } from "vue";
 
 interface Options {
   selector?: string;
@@ -24,16 +26,15 @@ export function useReveal(root: Ref<HTMLElement | null>, opts: Options = {}) {
 
   let triggers: ScrollTrigger[] = [];
 
-  onMounted(() => {
+  onMounted(async () => {
+    if (!root.value) return;
+    await nextTick();
     if (!root.value) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    // Type-reveal — clip-path sweep on big headlines
     const typeItems = Array.from(
       root.value.querySelectorAll<HTMLElement>(".type-reveal"),
     );
-
-    // Standard reveal
     const items = Array.from(root.value.querySelectorAll<HTMLElement>(selector));
     if (items.length === 0 && typeItems.length === 0) return;
 
@@ -48,6 +49,11 @@ export function useReveal(root: Ref<HTMLElement | null>, opts: Options = {}) {
       return;
     }
 
+    const isInViewport = (el: HTMLElement) => {
+      const r = el.getBoundingClientRect();
+      return r.top < window.innerHeight * 0.95 && r.bottom > 0;
+    };
+
     // Group standard reveals by [data-reveal-group]
     const groups = new Map<HTMLElement, HTMLElement[]>();
     items.forEach((el) => {
@@ -58,6 +64,22 @@ export function useReveal(root: Ref<HTMLElement | null>, opts: Options = {}) {
     });
 
     groups.forEach((groupItems, parent) => {
+      const above = isInViewport(parent);
+      if (above) {
+        gsap.fromTo(
+          groupItems,
+          { y: 14, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration,
+            ease: "power3.out",
+            stagger,
+            delay: 0.05,
+          },
+        );
+        return;
+      }
       const tween = gsap.fromTo(
         groupItems,
         { y: 14, opacity: 0 },
@@ -79,8 +101,17 @@ export function useReveal(root: Ref<HTMLElement | null>, opts: Options = {}) {
       if (t) triggers.push(t);
     });
 
-    // Type-reveal — left-to-right clip sweep, no fade (keeps contrast crisp)
+    // Type-reveal — left-to-right clip sweep
     typeItems.forEach((el) => {
+      const above = isInViewport(el);
+      if (above) {
+        gsap.fromTo(
+          el,
+          { clipPath: "inset(0 100% 0 0)" },
+          { clipPath: "inset(0 0% 0 0)", duration: 1.05, ease: "power4.out", delay: 0.1 },
+        );
+        return;
+      }
       const tween = gsap.fromTo(
         el,
         { clipPath: "inset(0 100% 0 0)" },
@@ -99,6 +130,8 @@ export function useReveal(root: Ref<HTMLElement | null>, opts: Options = {}) {
       const t = tween.scrollTrigger;
       if (t) triggers.push(t);
     });
+
+    requestAnimationFrame(() => ScrollTrigger.refresh());
   });
 
   onBeforeUnmount(() => {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { computed, ref, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { useReveal } from "@/composables/useReveal";
+import { useTypography } from "@/composables/useTypography";
 import { useCounter } from "@/composables/useCounter";
 import { getCaseStudy, caseStudySlugs } from "@/data/case-studies";
 import StatusDot from "@/components/ui/StatusDot.vue";
@@ -27,7 +27,7 @@ watchEffect(() => {
 });
 
 const root = ref<HTMLElement | null>(null);
-useReveal(root);
+useTypography(root);
 useCounter(root);
 
 const readingMinutes = computed(() => {
@@ -130,9 +130,9 @@ const nextTitle = computed(() =>
 
         <!-- Title -->
         <h1
-          class="mt-12 max-w-[20ch] font-display text-display-xl text-ink-primary lg:mt-16"
+          class="mt-12 max-w-[20ch] font-display text-display-xl text-ink-primary track-tight lg:mt-16"
         >
-          <span class="block type-reveal">{{ study.title }}</span>
+          <span class="block" data-split="words">{{ study.title }}</span>
         </h1>
 
         <p class="reveal-init mt-10 max-w-[60ch] text-body-lg text-ink-muted">
@@ -199,9 +199,10 @@ const nextTitle = computed(() =>
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
           <h2
-            class="reveal-init col-span-12 max-w-[16ch] font-display text-display-md text-ink-primary lg:col-span-5"
+            class="reveal-init col-span-12 max-w-[16ch] font-display text-display-md text-ink-primary track-snug lg:col-span-5"
+            data-split="words"
           >
-            The brief, in one breath.
+            The brief, <span class="italic-accent text-ink-muted">in one breath.</span>
           </h2>
           <div class="col-span-12 lg:col-span-7">
             <p class="reveal-init max-w-[60ch] text-body-lg text-ink-primary">
@@ -231,8 +232,8 @@ const nextTitle = computed(() =>
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
           <div class="col-span-12 lg:col-span-4">
-            <h2 class="reveal-init max-w-[14ch] font-display text-display-md text-ink-primary">
-              How the parts fit.
+            <h2 class="reveal-init max-w-[14ch] font-display text-display-md text-ink-primary track-snug" data-split="words">
+              How the parts <span class="italic-accent text-ink-muted">fit.</span>
             </h2>
             <p class="reveal-init mt-5 max-w-[36ch] text-body-md text-ink-muted">
               Mermaid diagram, themed for the editorial palette. Refresh to
@@ -266,9 +267,10 @@ const nextTitle = computed(() =>
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
           <h2
-            class="reveal-init col-span-12 max-w-[18ch] font-display text-display-md text-ink-primary lg:col-span-5"
+            class="reveal-init col-span-12 max-w-[18ch] font-display text-display-md text-ink-primary track-snug lg:col-span-5"
+            data-split="words"
           >
-            What got picked, and why.
+            What got picked, <span class="italic-accent text-ink-muted">and why.</span>
           </h2>
         </div>
 
@@ -307,9 +309,10 @@ const nextTitle = computed(() =>
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
           <h2
-            class="reveal-init col-span-12 max-w-[20ch] font-display text-display-md text-ink-primary lg:col-span-7"
+            class="reveal-init col-span-12 max-w-[20ch] font-display text-display-md text-ink-primary track-snug lg:col-span-7"
+            data-split="words"
           >
-            The parts that hurt — and the fix.
+            The parts that hurt — <span class="italic-accent text-ink-muted">and the fix.</span>
           </h2>
         </div>
 
@@ -368,9 +371,10 @@ const nextTitle = computed(() =>
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
           <h2
-            class="reveal-init col-span-12 max-w-[20ch] font-display text-display-md text-ink-primary lg:col-span-5"
+            class="reveal-init col-span-12 max-w-[20ch] font-display text-display-md text-ink-primary track-snug lg:col-span-5"
+            data-split="words"
           >
-            What it ended up being.
+            What it ended up <span class="italic-accent text-ink-muted">being.</span>
           </h2>
           <div class="col-span-12 lg:col-span-7">
             <p class="reveal-init max-w-[60ch] text-body-lg text-ink-primary">
@@ -414,8 +418,8 @@ const nextTitle = computed(() =>
         </div>
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
-          <h2 class="reveal-init col-span-12 max-w-[24ch] font-display text-display-md text-ink-primary lg:col-span-7">
-            The bits I'd defend in a code review.
+          <h2 class="reveal-init col-span-12 max-w-[24ch] font-display text-display-md text-ink-primary track-snug lg:col-span-7" data-split="words">
+            The bits I'd defend <span class="italic-accent text-ink-muted">in a code review.</span>
           </h2>
         </div>
 

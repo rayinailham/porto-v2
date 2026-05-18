@@ -196,6 +196,8 @@
 
   /* ---- Typography motion primitives ---- */
   /* Split-text wrapper: each unit (.split-line / .split-word) is its own clip mask. */
+  /* IMPORTANT: no initial transform — GSAP sets that only when it actually runs.
+     Otherwise (route change, JS error, reduced-motion) text stays visible. */
   .split-line,
   .split-word {
     display: inline-block;
@@ -204,7 +206,6 @@
   }
   .split-inner {
     display: inline-block;
-    transform: translateY(110%);
     will-change: transform;
   }
 

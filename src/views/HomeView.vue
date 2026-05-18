@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useReveal } from "@/composables/useReveal";
-import { useSplitText } from "@/composables/useSplitText";
+import { useTypography } from "@/composables/useTypography";
 import HeroSection from "@/components/sections/HeroSection.vue";
 import CurrentlyBuilding from "@/components/sections/CurrentlyBuilding.vue";
 import PillarsSection from "@/components/sections/PillarsSection.vue";
@@ -11,8 +10,7 @@ import SideBSection from "@/components/sections/SideBSection.vue";
 import ClosingCTA from "@/components/sections/ClosingCTA.vue";
 
 const root = ref<HTMLElement | null>(null);
-useReveal(root);
-useSplitText(root);
+useTypography(root);
 </script>
 
 <template>

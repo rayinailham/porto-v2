@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
-import { useReveal } from "@/composables/useReveal";
+import { useTypography } from "@/composables/useTypography";
 import { allProjects, tagOptions, type WorkTag } from "@/data/portfolio";
 import StatusDot from "@/components/ui/StatusDot.vue";
 import MonoChip from "@/components/ui/MonoChip.vue";
 
 const root = ref<HTMLElement | null>(null);
-useReveal(root);
+useTypography(root);
 
 const activeTag = ref<WorkTag>("all");
 
@@ -52,10 +52,12 @@ const statusColor = (s?: "active" | "shipped" | "ongoing") =>
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12 lg:pt-20">
           <h1
-            class="col-span-12 max-w-[20ch] font-display text-display-xl text-ink-primary lg:col-span-8"
+            class="col-span-12 max-w-[20ch] font-display text-display-xl text-ink-primary track-tight lg:col-span-8"
           >
-            <span class="block type-reveal">All public work,</span>
-            <span class="block type-reveal text-ink-muted">in one place.</span>
+            <span class="block" data-split="words">All public work,</span>
+            <span class="block text-ink-muted" data-split="words">
+              <span class="italic-accent text-ink-muted">in one place.</span>
+            </span>
           </h1>
           <div class="reveal-init col-span-12 lg:col-span-4 lg:self-end">
             <div class="font-mono text-mono-xs uppercase text-ink-subtle">

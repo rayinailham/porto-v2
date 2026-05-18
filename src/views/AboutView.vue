@@ -1,12 +1,15 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { useReveal } from "@/composables/useReveal";
+import { useTypography } from "@/composables/useTypography";
 import { useCounter } from "@/composables/useCounter";
+import { useTextRotator } from "@/composables/useTextRotator";
 import MonoChip from "@/components/ui/MonoChip.vue";
 import AppButton from "@/components/ui/AppButton.vue";
+import EqualizerBars from "@/components/ui/EqualizerBars.vue";
+import RegistrationMark from "@/components/ui/RegistrationMark.vue";
 
 const root = ref<HTMLElement | null>(null);
-useReveal(root);
+useTypography(root);
 useCounter(root);
 
 onMounted(() => {
@@ -104,6 +107,18 @@ const beliefs: Belief[] = [
       "An invisible system is an unreliable system. Every backend project I take seriously gets a thin operational UI — not because users want it, but because future-me does.",
   },
 ];
+
+// Off-clock — text rotator for "now playing" line
+const nowPlaying = [
+  { kind: "Build", value: "Carian Sorcery Sword + parry" },
+  { kind: "Sidearm", value: "Milady — she catches the rhythm" },
+  { kind: "Mobile", value: "Chaos Zero : Nightmare" },
+  { kind: "Stream", value: "Hoshimachi Suisei · Isaki Riona · Kokage Tsumugi" },
+  { kind: "Anime", value: "Clevatess (blind run, Alicia stuck)" },
+  { kind: "Loop", value: "Kaiki Deishu's theme" },
+  { kind: "Mascot", value: "Frostlass · 6% win-rate engineering" },
+];
+const npIdx = useTextRotator(nowPlaying.length, 3400);
 </script>
 
 <template>
@@ -127,12 +142,16 @@ const beliefs: Belief[] = [
 
         <!-- Headline -->
         <h1
-          class="col-span-12 mt-12 max-w-[20ch] font-display text-display-xl text-ink-primary lg:mt-20"
+          class="col-span-12 mt-12 max-w-[20ch] font-display text-display-xl text-ink-primary track-tight lg:mt-20"
         >
-          <span class="block type-reveal">Two years from</span>
-          <span class="block type-reveal text-ink-muted">Kotlin lifecycle</span>
-          <span class="block type-reveal">to Go microservice</span>
-          <span class="block type-reveal text-accent-warm">production paths.</span>
+          <span class="block" data-split="words">Two years from</span>
+          <span class="block text-ink-muted" data-split="words">
+            <span class="italic-accent">Kotlin lifecycle</span>
+          </span>
+          <span class="block" data-split="words">to Go microservice</span>
+          <span class="block text-accent-warm" data-split="words">
+            <span class="italic-accent">production paths.</span>
+          </span>
         </h1>
 
         <!-- Lead + meta dl -->
@@ -147,7 +166,7 @@ const beliefs: Belief[] = [
             <div class="reveal-init border-l border-line px-5 py-3 first:border-l-0 first:pl-0">
               <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Public repos</dt>
               <dd
-                class="mt-3 font-display text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary"
+                class="mt-3 font-display text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary num-tabular"
                 data-counter="46"
               >0</dd>
             </div>
@@ -190,9 +209,10 @@ const beliefs: Belief[] = [
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
           <h2
-            class="reveal-init col-span-12 max-w-[20ch] font-display text-display-md text-ink-primary lg:col-span-7"
+            class="reveal-init col-span-12 max-w-[20ch] font-display text-display-md text-ink-primary track-snug lg:col-span-7"
+            data-split="words"
           >
-            Three years, three operating modes.
+            Three years, <span class="italic-accent text-ink-muted">three operating modes.</span>
           </h2>
           <p class="reveal-init col-span-12 max-w-[40ch] text-body-md text-ink-muted lg:col-span-5 lg:text-right">
             Each year inherits the previous year's structural lessons and applies
@@ -207,7 +227,7 @@ const beliefs: Belief[] = [
             class="reveal-init grid grid-cols-12 gap-x-6 gap-y-5 py-10 lg:py-14"
           >
             <div class="col-span-12 lg:col-span-2">
-              <div class="font-display text-[clamp(2.5rem,4vw,3.5rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary">
+              <div class="font-display text-[clamp(2.5rem,4vw,3.5rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary num-tabular weight-shift">
                 {{ b.year }}
               </div>
               <div class="mt-3 font-mono text-mono-xs uppercase text-ink-subtle">
@@ -247,8 +267,8 @@ const beliefs: Belief[] = [
         </div>
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
-          <h2 class="reveal-init col-span-12 max-w-[18ch] font-display text-display-md text-ink-primary lg:col-span-7">
-            Four positions I'd defend in a code review.
+          <h2 class="reveal-init col-span-12 max-w-[18ch] font-display text-display-md text-ink-primary track-snug lg:col-span-7" data-split="words">
+            Four positions <span class="italic-accent text-ink-muted">I'd defend in a code review.</span>
           </h2>
         </div>
 
@@ -294,8 +314,8 @@ const beliefs: Belief[] = [
         </div>
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
-          <h2 class="reveal-init col-span-12 max-w-[16ch] font-display text-display-md text-ink-primary lg:col-span-7">
-            Where I lead, not just contribute.
+          <h2 class="reveal-init col-span-12 max-w-[16ch] font-display text-display-md text-ink-primary track-snug lg:col-span-7" data-split="words">
+            Where I lead, <span class="italic-accent text-ink-muted">not just contribute.</span>
           </h2>
           <p class="reveal-init col-span-12 max-w-[36ch] text-body-md text-ink-muted lg:col-span-5 lg:text-right">
             Beyond personal repos, I drive architecture and delivery for several
@@ -347,8 +367,13 @@ const beliefs: Belief[] = [
       </div>
     </section>
 
-    <!-- Personal note -->
-    <section class="relative py-section" data-reveal-group>
+    <!-- Off-clock — expanded with hobby telemetry + motion graphics -->
+    <section class="relative isolate overflow-hidden py-section" data-reveal-group>
+      <!-- Decorative registration mark — top right -->
+      <div class="pointer-events-none absolute right-6 top-10 hidden md:block">
+        <RegistrationMark :size="32" :speed="44" />
+      </div>
+
       <div class="shell-wide">
         <div
           class="reveal-init flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle"
@@ -357,18 +382,24 @@ const beliefs: Belief[] = [
             <span class="text-ink-faint">02.4</span>
             <span>Off the clock</span>
           </span>
+          <span class="hidden items-center gap-3 sm:inline-flex">
+            <EqualizerBars :bars="6" :height="11" :width="1.5" :gap="3" class="text-accent-warm" />
+            <span class="text-ink-muted">audio · loops</span>
+          </span>
         </div>
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-12 pt-12">
-          <h2 class="reveal-init col-span-12 max-w-[14ch] font-display text-display-md text-ink-primary lg:col-span-5">
-            The other half.
+          <h2 class="reveal-init col-span-12 max-w-[16ch] font-display text-display-md text-ink-primary track-snug lg:col-span-5" data-split="words">
+            The other half — <span class="italic-accent text-ink-muted">what runs when the IDE is closed.</span>
           </h2>
           <div class="col-span-12 lg:col-span-7">
             <p class="reveal-init max-w-[52ch] text-body-lg text-ink-primary">
               I code better when there's a Hololive stream on a second monitor.
-              Hoshimachi Suisei and Isaki Riona are the regulars; I clip on the
-              side, which is where the After Effects and Premiere skills come
-              from.
+              <span class="italic-accent text-ink-primary">Hoshimachi Suisei</span> and
+              <span class="italic-accent text-ink-primary">Isaki Riona</span> are the regulars,
+              with <span class="italic-accent text-ink-muted">Kokage Tsumugi</span> from VSPO
+              dropping in. I clip on the side, which is where the After Effects and Premiere
+              skills come from.
             </p>
             <p class="reveal-init mt-6 max-w-[52ch] text-body-md text-ink-muted">
               Languages: Indonesian (native), English (business), Japanese
@@ -376,11 +407,202 @@ const beliefs: Belief[] = [
               time — turns out it's also useful for reading source code from
               Japanese OSS authors.
             </p>
+          </div>
+        </div>
+
+        <!-- Now-playing rotator strip -->
+        <div
+          class="reveal-init mt-section-sm grid grid-cols-12 items-baseline gap-x-6 gap-y-4 border-y border-line py-6"
+        >
+          <div class="col-span-12 md:col-span-3">
+            <div class="font-mono text-mono-xs uppercase text-ink-subtle">
+              <span>02.4 / B — Now playing</span>
+            </div>
+          </div>
+          <div class="col-span-12 md:col-span-9">
+            <div class="flex flex-wrap items-baseline gap-x-4 gap-y-2">
+              <span class="font-mono text-mono-xs uppercase tracking-[0.18em] text-ink-faint">
+                {{ nowPlaying[npIdx].kind }} /
+              </span>
+              <Transition
+                mode="out-in"
+                enter-active-class="transition-all duration-700 ease-haptic"
+                enter-from-class="opacity-0 translate-y-1.5"
+                enter-to-class="opacity-100 translate-y-0"
+                leave-active-class="transition-all duration-500 ease-haptic"
+                leave-from-class="opacity-100 translate-y-0"
+                leave-to-class="opacity-0 -translate-y-1.5"
+              >
+                <span
+                  :key="nowPlaying[npIdx].value"
+                  class="font-display text-[clamp(1.35rem,2.4vw,2rem)] font-medium tracking-[-0.028em] text-ink-primary"
+                >
+                  <span class="italic-accent text-ink-primary">{{ nowPlaying[npIdx].value }}</span>
+                </span>
+              </Transition>
+            </div>
+          </div>
+        </div>
+
+        <!-- Three-up hobby cards -->
+        <div class="grid grid-cols-1 border-b border-line md:grid-cols-3">
+          <article class="reveal-init flex flex-col gap-6 border-line py-10 md:border-l md:px-8 md:py-12 md:first:border-l-0 md:first:pl-0">
+            <div class="flex items-baseline justify-between gap-3 font-mono text-mono-xs uppercase text-ink-subtle">
+              <span class="inline-flex items-center gap-3">
+                <span class="text-ink-faint">B.01</span>
+                <span>Tarnished — current run</span>
+              </span>
+              <span class="text-ink-faint">ELDEN RING</span>
+            </div>
+            <h3 class="font-display text-[clamp(1.5rem,2vw,1.85rem)] font-semibold tracking-[-0.03em] text-ink-primary">
+              <span class="italic-accent">Carian Sorcery Sword</span> + parry
+            </h3>
+            <p class="max-w-[36ch] text-body-md text-ink-muted">
+              FTH/STR, Full STR, Parry + knife — all retired runs. Currently:
+              sorcery in the right hand, parry shield in the left. Sidearm of choice still
+              <span class="italic-accent text-ink-primary">Milady</span>.
+            </p>
+          </article>
+
+          <article class="reveal-init flex flex-col gap-6 border-line py-10 md:border-l md:px-8 md:py-12">
+            <div class="flex items-baseline justify-between gap-3 font-mono text-mono-xs uppercase text-ink-subtle">
+              <span class="inline-flex items-center gap-3">
+                <span class="text-ink-faint">B.02</span>
+                <span>Mascot of choice</span>
+              </span>
+              <span class="text-ink-faint">ICE / GHOST</span>
+            </div>
+            <h3 class="font-display text-[clamp(1.5rem,2vw,1.85rem)] font-semibold tracking-[-0.03em] text-ink-primary">
+              <span class="italic-accent">Frostlass</span>
+            </h3>
+            <p class="max-w-[36ch] text-body-md text-ink-muted">
+              Weak by spec, sharper by play. If the win condition exists, I'll
+              find it inside her potential ceiling.
+            </p>
+          </article>
+
+          <article class="reveal-init flex flex-col gap-6 border-line py-10 md:border-l md:px-8 md:py-12 md:last:pr-0">
+            <div class="flex items-baseline justify-between gap-3 font-mono text-mono-xs uppercase text-ink-subtle">
+              <span class="inline-flex items-center gap-3">
+                <span class="text-ink-faint">B.03</span>
+                <span>Latest watch</span>
+              </span>
+              <span class="text-ink-faint">BLIND RUN</span>
+            </div>
+            <h3 class="font-display text-[clamp(1.5rem,2vw,1.85rem)] font-semibold tracking-[-0.03em] text-ink-primary">
+              <span class="italic-accent">Clevatess</span>
+            </h3>
+            <p class="max-w-[36ch] text-body-md text-ink-muted">
+              Went in blind, stayed for <span class="italic-accent text-ink-primary">Alicia</span> —
+              mature, never acts on emotion. Quiet engineering trait.
+            </p>
+          </article>
+        </div>
+
+        <!-- Lower split: telemetry list + audio loop card -->
+        <div class="grid grid-cols-12 gap-x-6 gap-y-12 pt-section-sm">
+          <!-- Hobby dl -->
+          <div class="reveal-init col-span-12 lg:col-span-7">
+            <div class="flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle">
+              <span class="inline-flex items-center gap-3">
+                <span class="text-ink-faint">B.04</span>
+                <span>Off-clock telemetry</span>
+              </span>
+              <span class="text-ink-muted">log · open</span>
+            </div>
+
+            <dl class="mt-2 divide-y divide-line">
+              <div class="flex flex-wrap items-baseline justify-between gap-4 py-5">
+                <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Mobile fixation</dt>
+                <dd class="font-display text-[clamp(1rem,1.3vw,1.2rem)] font-medium tracking-[-0.022em] text-ink-primary">
+                  <span class="italic-accent">Chaos Zero : Nightmare</span>
+                </dd>
+              </div>
+              <div class="flex flex-wrap items-baseline justify-between gap-4 py-5">
+                <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Tabletop / dungeon</dt>
+                <dd class="font-display text-[clamp(1rem,1.3vw,1.2rem)] font-medium tracking-[-0.022em] text-ink-primary">
+                  <span class="italic-accent">Darkest Dungeon I</span>
+                  <span class="ml-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">only the original</span>
+                </dd>
+              </div>
+              <div class="flex flex-wrap items-baseline justify-between gap-4 py-5">
+                <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Anime · stuck</dt>
+                <dd class="max-w-[34ch] text-right font-display text-[clamp(1rem,1.3vw,1.2rem)] font-medium tracking-[-0.022em] text-ink-primary">
+                  <span class="italic-accent">Yoruwa Mijikashi, Arukeyo Otome</span>
+                </dd>
+              </div>
+              <div class="flex flex-wrap items-baseline justify-between gap-4 py-5">
+                <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Watched · approx</dt>
+                <dd class="font-display text-[clamp(1rem,1.3vw,1.2rem)] font-medium tracking-[-0.022em] text-ink-primary num-tabular">
+                  hundreds, possibly <span class="italic-accent">a thousand</span>
+                </dd>
+              </div>
+              <div class="flex flex-wrap items-baseline justify-between gap-4 py-5">
+                <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Character pull</dt>
+                <dd class="max-w-[34ch] text-right font-display text-[clamp(1rem,1.3vw,1.2rem)] font-medium tracking-[-0.022em] text-ink-primary">
+                  <span class="italic-accent">Alicia</span> — never on emotion
+                </dd>
+              </div>
+            </dl>
+
             <div class="reveal-init mt-12 flex flex-wrap items-center gap-4">
               <AppButton variant="primary" to="/contact">Get in touch</AppButton>
               <AppButton variant="ghost" to="/work">See selected work</AppButton>
             </div>
           </div>
+
+          <!-- Audio loop card -->
+          <aside class="reveal-init col-span-12 flex flex-col border-l border-line pl-0 lg:col-span-5 lg:pl-12">
+            <div class="flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle">
+              <span class="inline-flex items-center gap-3">
+                <span class="text-ink-faint">B.05</span>
+                <span>Audio · on loop</span>
+              </span>
+              <RegistrationMark :size="14" :speed="22" reverse />
+            </div>
+
+            <div class="mt-8 flex items-end gap-6">
+              <EqualizerBars
+                :bars="11"
+                :height="56"
+                :width="2"
+                :gap="4"
+                class="text-accent-warm"
+              />
+              <div>
+                <div class="font-mono text-mono-xs uppercase text-ink-subtle">
+                  Now playing
+                </div>
+                <div class="mt-2 font-display text-[clamp(1.1rem,1.4vw,1.35rem)] font-semibold tracking-[-0.02em] text-ink-primary">
+                  <span class="italic-accent">Kaiki Deishu's theme</span>
+                </div>
+                <div class="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
+                  signal · monogatari
+                </div>
+              </div>
+            </div>
+
+            <dl class="mt-10 divide-y divide-line border-y border-line">
+              <div class="flex items-baseline justify-between gap-4 py-3">
+                <dt class="font-mono text-mono-xs uppercase text-ink-subtle">VTuber rotation</dt>
+                <dd class="font-display text-[14.5px] font-medium tracking-[-0.012em] text-ink-primary">
+                  Suisei · Riona · Tsumugi
+                </dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-4 py-3">
+                <dt class="font-mono text-mono-xs uppercase text-ink-subtle">House label</dt>
+                <dd class="font-display text-[14.5px] font-medium tracking-[-0.012em] text-ink-primary">
+                  Hololive · VSPO
+                </dd>
+              </div>
+              <div class="flex items-baseline justify-between gap-4 py-3">
+                <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Latest watch</dt>
+                <dd class="font-display text-[14.5px] font-medium tracking-[-0.012em] text-ink-primary">
+                  Clevatess · Alicia
+                </dd>
+              </div>
+            </dl>
+          </aside>
         </div>
       </div>
     </section>

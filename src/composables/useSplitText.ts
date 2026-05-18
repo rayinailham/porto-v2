@@ -10,10 +10,12 @@
  * - Preserves nested elements (e.g. <span class="italic-accent">) by walking
  *   the tree and only splitting text nodes.
  * - One ScrollTrigger per element; cleaned up on unmount.
+ * - Idempotent: marks split nodes so re-running on the same root is safe.
+ * - Calls ScrollTrigger.refresh() after Lenis is up so positions are correct.
  */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { onBeforeUnmount, onMounted, type Ref } from "vue";
+import { onBeforeUnmount, onMounted, type Ref, nextTick } from "vue";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -27,14 +29,13 @@ interface Options {
 
 const SPLIT_DONE = "data-split-done";
 
-function splitNode(node: Node, frag: DocumentFragment) {
+function splitNode(node: Node, frag: DocumentFragment | HTMLElement) {
   if (node.nodeType === Node.TEXT_NODE) {
     const text = node.textContent ?? "";
     if (!text.trim()) {
       frag.appendChild(document.createTextNode(text));
       return;
     }
-    // Split on whitespace but keep the spaces between
     const tokens = text.split(/(\s+)/);
     tokens.forEach((tok) => {
       if (!tok) return;
@@ -66,7 +67,7 @@ function splitNode(node: Node, frag: DocumentFragment) {
   }
 
   const clone = el.cloneNode(false) as HTMLElement;
-  el.childNodes.forEach((child) => splitNode(child, clone as unknown as DocumentFragment));
+  el.childNodes.forEach((child) => splitNode(child, clone));
   frag.appendChild(clone);
 }
 
@@ -82,7 +83,7 @@ function splitElement(el: HTMLElement) {
 export function useSplitText(root: Ref<HTMLElement | null>, opts: Options = {}) {
   const {
     selector = "[data-split='words']",
-    start = "top 85%",
+    start = "top 88%",
     duration = 0.95,
     stagger = 0.045,
     ease = "expo.out",
@@ -90,8 +91,12 @@ export function useSplitText(root: Ref<HTMLElement | null>, opts: Options = {}) 
 
   const triggers: ScrollTrigger[] = [];
 
-  onMounted(() => {
+  onMounted(async () => {
     if (!root.value) return;
+    // Wait one tick so child components have rendered
+    await nextTick();
+    if (!root.value) return;
+
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     const targets = Array.from(root.value.querySelectorAll<HTMLElement>(selector));
@@ -101,31 +106,47 @@ export function useSplitText(root: Ref<HTMLElement | null>, opts: Options = {}) 
       if (!inners.length) return;
 
       if (reduced) {
-        inners.forEach((n) => {
-          n.style.transform = "translateY(0)";
-        });
+        // No transform — text already visible from CSS
         return;
       }
 
-      const tween = gsap.fromTo(
-        inners,
-        { yPercent: 110 },
-        {
+      // Set initial state via GSAP only (CSS no longer hides it).
+      gsap.set(inners, { yPercent: 110 });
+
+      // If element is already in / past viewport at mount (above the fold),
+      // ScrollTrigger may not fire its onEnter. Detect that and play immediately.
+      const rect = el.getBoundingClientRect();
+      const inViewport = rect.top < window.innerHeight * 0.95;
+
+      if (inViewport) {
+        gsap.to(inners, {
           yPercent: 0,
           duration,
           ease,
           stagger,
-          scrollTrigger: {
-            trigger: el,
-            start,
-            toggleActions: "play none none none",
-            once: true,
-          },
+          delay: 0.08,
+        });
+        return;
+      }
+
+      const tween = gsap.to(inners, {
+        yPercent: 0,
+        duration,
+        ease,
+        stagger,
+        scrollTrigger: {
+          trigger: el,
+          start,
+          toggleActions: "play none none none",
+          once: true,
         },
-      );
+      });
       const t = tween.scrollTrigger;
       if (t) triggers.push(t);
     });
+
+    // Refresh ScrollTrigger after layout settles (Lenis, fonts, etc.)
+    requestAnimationFrame(() => ScrollTrigger.refresh());
   });
 
   onBeforeUnmount(() => {
