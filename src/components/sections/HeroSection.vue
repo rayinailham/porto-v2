@@ -1,6 +1,11 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import StatusDot from "@/components/ui/StatusDot.vue";
 import MonoChip from "@/components/ui/MonoChip.vue";
+import { useSplitText } from "@/composables/useSplitText";
+
+const headline = ref<HTMLElement | null>(null);
+useSplitText(headline);
 </script>
 
 <template>
@@ -52,18 +57,23 @@ import MonoChip from "@/components/ui/MonoChip.vue";
 
         <!-- Headline -->
         <h1
+          ref="headline"
           class="col-span-12 lg:col-span-9"
         >
           <span class="block font-mono text-mono-xs uppercase text-ink-subtle reveal-init">
             <span class="text-ink-faint">§</span> Statement
           </span>
           <span
-            class="reveal-init mt-6 block font-display text-display-xl text-ink-primary"
+            class="mt-6 block font-display text-display-xl text-ink-primary track-tight"
           >
-            <span class="block type-reveal">Go-first microservice</span>
-            <span class="block type-reveal">architect, shipping</span>
-            <span class="block type-reveal">
-              <span class="text-accent-warm">AI</span><span class="text-ink-subtle"> / </span>in production.
+            <span class="block" data-split="words">Go-first microservice</span>
+            <span class="block" data-split="words">
+              <span class="italic-accent text-ink-primary">architect,</span> shipping
+            </span>
+            <span class="block" data-split="words">
+              <span class="italic-accent text-accent-warm" data-split-skip>AI</span>
+              <span class="text-ink-subtle"> / </span>in
+              <span class="italic-accent text-ink-muted">production.</span>
             </span>
           </span>
         </h1>

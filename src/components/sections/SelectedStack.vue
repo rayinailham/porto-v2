@@ -25,9 +25,10 @@ import { stackGroups } from "@/data/portfolio";
       <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
         <h2
           id="stack-heading"
-          class="reveal-init col-span-12 max-w-[18ch] font-display text-display-md text-ink-primary lg:col-span-8"
+          class="reveal-init col-span-12 max-w-[18ch] font-display text-display-md text-ink-primary lg:col-span-8 track-snug"
+          data-split="words"
         >
-          Opinionated, not omnivorous.
+          Opinionated, <span class="italic-accent text-ink-muted">not omnivorous.</span>
         </h2>
         <p class="reveal-init col-span-12 max-w-[40ch] text-body-md text-ink-muted lg:col-span-4 lg:text-right">
           The default tools for the job. Everything below has shipped in the

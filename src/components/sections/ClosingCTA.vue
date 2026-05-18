@@ -29,11 +29,12 @@ import AppButton from "@/components/ui/AppButton.vue";
         <div class="col-span-12 lg:col-span-8">
           <h2
             id="cta-heading"
-            class="reveal-init max-w-[20ch] font-display text-display-lg text-ink-primary"
+            class="reveal-init max-w-[20ch] font-display text-display-lg text-ink-primary track-tight"
+            data-split="words"
           >
-            <span class="block type-reveal">You ship products.</span>
-            <span class="block type-reveal text-ink-muted">I ship the systems</span>
-            <span class="block type-reveal">underneath them.</span>
+            <span class="block">You ship products.</span>
+            <span class="block text-ink-muted">I ship the <span class="italic-accent text-ink-primary">systems</span></span>
+            <span class="block italic-accent text-ink-primary">underneath them.</span>
           </h2>
 
           <p class="reveal-init mt-10 max-w-[48ch] text-body-md text-ink-muted">

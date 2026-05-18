@@ -41,6 +41,15 @@ export default {
           "system-ui",
           "sans-serif",
         ],
+        // Serif accent for italic editorial moments — variable Fraunces
+        serif: [
+          "Fraunces Variable",
+          "Fraunces",
+          "ui-serif",
+          "Georgia",
+          "Cambria",
+          "serif",
+        ],
         mono: [
           "JetBrains Mono Variable",
           "JetBrains Mono",

@@ -34,10 +34,11 @@ useCounter(root);
         <!-- Lead text -->
         <div class="reveal-init col-span-12 lg:col-span-7">
           <h2
-            class="max-w-[20ch] font-display text-display-md text-ink-primary"
+            class="max-w-[20ch] font-display text-display-md text-ink-primary track-snug"
+            data-split="words"
           >
-            Leading <span class="text-accent-warm">WIS-FutureGuide</span>, a
-            nine-service Go ecosystem for career guidance — in active development.
+            Leading <span class="italic-accent text-accent-warm">WIS-FutureGuide</span>, a
+            nine-service Go ecosystem for career guidance — <span class="italic-accent text-ink-muted">in active development.</span>
           </h2>
           <div class="mt-8 flex flex-wrap gap-1.5">
             <MonoChip variant="warm">Go 1.24</MonoChip>
@@ -58,7 +59,7 @@ useCounter(root);
               Services
             </dt>
             <dd
-              class="mt-4 font-display text-[clamp(2rem,3.5vw,3.25rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary"
+              class="mt-4 font-display text-[clamp(2rem,3.5vw,3.25rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary num-tabular"
               data-counter="9"
             >0</dd>
           </div>
@@ -67,11 +68,12 @@ useCounter(root);
               Lanes
             </dt>
             <dd
-              class="mt-4 font-display text-[clamp(2rem,3.5vw,3.25rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary"
+              class="mt-4 font-display text-[clamp(2rem,3.5vw,3.25rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary num-tabular"
               data-counter="2"
             >0</dd>
             <span class="mt-2 inline-block font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
-              sync + async
+              <span class="italic-accent normal-case tracking-normal text-ink-muted">sync</span>
+              + <span class="italic-accent normal-case tracking-normal text-ink-muted">async</span>
             </span>
           </div>
           <div class="reveal-init border-l border-line px-6">
@@ -79,7 +81,7 @@ useCounter(root);
               Last push
             </dt>
             <dd
-              class="mt-4 font-display text-[clamp(1.25rem,1.8vw,1.6rem)] font-semibold leading-tight tracking-[-0.025em] text-ink-primary"
+              class="mt-4 font-display text-[clamp(1.25rem,1.8vw,1.6rem)] font-semibold leading-tight tracking-[-0.025em] text-ink-primary num-tabular"
             >
               May 26<span class="text-ink-faint">/26</span>
             </dd>

@@ -26,10 +26,11 @@ import MonoChip from "@/components/ui/MonoChip.vue";
       <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
         <h2
           id="pillars-heading"
-          class="reveal-init col-span-12 max-w-[24ch] font-display text-display-md text-ink-primary lg:col-span-8"
+          class="reveal-init col-span-12 max-w-[24ch] font-display text-display-md text-ink-primary lg:col-span-8 track-snug"
+          data-split="words"
         >
-          One engineer, three operating modes —
-          <span class="text-ink-muted">all shipped, none theoretical.</span>
+          One engineer, <span class="italic-accent text-ink-primary">three operating modes</span> —
+          <span class="text-ink-muted">all shipped, <span class="italic-accent">none theoretical.</span></span>
         </h2>
         <p class="reveal-init col-span-12 max-w-[36ch] text-body-md text-ink-muted lg:col-span-4 lg:text-right">
           Backend depth, microservice topology, and practical AI converge in
@@ -42,11 +43,11 @@ import MonoChip from "@/components/ui/MonoChip.vue";
         <li
           v-for="p in pillars"
           :key="p.index"
-          class="reveal-init grid grid-cols-12 gap-x-6 gap-y-5 py-10 lg:py-14"
+          class="reveal-init group grid grid-cols-12 gap-x-6 gap-y-5 py-10 lg:py-14"
         >
           <!-- Numeral + kicker -->
           <div class="col-span-12 lg:col-span-2">
-            <div class="font-display text-[clamp(2.5rem,4vw,3.5rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary">
+            <div class="font-display text-[clamp(2.5rem,4vw,3.5rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary num-tabular weight-shift">
               {{ p.index }}
             </div>
             <div class="mt-3 font-mono text-mono-xs uppercase text-ink-subtle">
@@ -56,7 +57,7 @@ import MonoChip from "@/components/ui/MonoChip.vue";
 
           <!-- Title -->
           <h3
-            class="col-span-12 max-w-[18ch] font-display text-heading-lg text-ink-primary lg:col-span-4"
+            class="col-span-12 max-w-[18ch] font-display text-heading-lg text-ink-primary lg:col-span-4 transition-colors duration-700 ease-haptic group-hover:text-ink-primary"
           >
             {{ p.title }}
           </h3>
