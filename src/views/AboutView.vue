@@ -7,10 +7,15 @@ import MonoChip from "@/components/ui/MonoChip.vue";
 import AppButton from "@/components/ui/AppButton.vue";
 import EqualizerBars from "@/components/ui/EqualizerBars.vue";
 import RegistrationMark from "@/components/ui/RegistrationMark.vue";
+import AudioLoopPlayer from "@/components/ui/AudioLoopPlayer.vue";
 
 const root = ref<HTMLElement | null>(null);
+const offClockSection = ref<HTMLElement | null>(null);
 useTypography(root);
 useCounter(root);
+
+// YouTube ID — Kaiki Deishu's theme (Monogatari)
+const KAIKI_VIDEO_ID = "vwWMaReMUio";
 
 onMounted(() => {
   document.title = "About · Rayina Ilham";
@@ -368,7 +373,11 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
     </section>
 
     <!-- Off-clock — expanded with hobby telemetry + motion graphics -->
-    <section class="relative isolate overflow-hidden py-section" data-reveal-group>
+    <section
+      ref="offClockSection"
+      class="relative isolate overflow-hidden py-section"
+      data-reveal-group
+    >
       <!-- Decorative registration mark — top right -->
       <div class="pointer-events-none absolute right-6 top-10 hidden md:block">
         <RegistrationMark :size="32" :speed="44" />
@@ -561,25 +570,13 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
               <RegistrationMark :size="14" :speed="22" reverse />
             </div>
 
-            <div class="mt-8 flex items-end gap-6">
-              <EqualizerBars
-                :bars="11"
-                :height="56"
-                :width="2"
-                :gap="4"
-                class="text-accent-warm"
+            <div class="mt-8">
+              <AudioLoopPlayer
+                :video-id="KAIKI_VIDEO_ID"
+                :trigger="offClockSection"
+                title="Kaiki Deishu's theme"
+                subtitle="signal · monogatari"
               />
-              <div>
-                <div class="font-mono text-mono-xs uppercase text-ink-subtle">
-                  Now playing
-                </div>
-                <div class="mt-2 font-display text-[clamp(1.1rem,1.4vw,1.35rem)] font-semibold tracking-[-0.02em] text-ink-primary">
-                  <span class="italic-accent">Kaiki Deishu's theme</span>
-                </div>
-                <div class="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
-                  signal · monogatari
-                </div>
-              </div>
             </div>
 
             <dl class="mt-10 divide-y divide-line border-y border-line">
@@ -602,6 +599,10 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
                 </dd>
               </div>
             </dl>
+
+            <p class="mt-5 max-w-[36ch] font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
+              // ambient · low volume · pauses when section leaves view
+            </p>
           </aside>
         </div>
       </div>

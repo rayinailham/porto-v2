@@ -3,13 +3,16 @@
  * EqualizerBars — minimal Swiss audio visualization.
  * Pure CSS animation, hardware-accelerated, deterministic phase per bar.
  * Used as a subtle motion graphic when referencing audio / theme songs.
+ *
+ * When `active` is false, bars freeze at their base scale (paused look).
  */
 interface Props {
   bars?: number;
-  height?: number; // px
-  width?: number; // bar width px
-  gap?: number; // px
+  height?: number;
+  width?: number;
+  gap?: number;
   color?: string;
+  active?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -18,12 +21,12 @@ const props = withDefaults(defineProps<Props>(), {
   width: 2,
   gap: 4,
   color: "currentColor",
+  active: true,
 });
 
-// Pseudo-random but deterministic delays/durations per bar
 const seeds = Array.from({ length: props.bars }, (_, i) => {
   const dur = 0.75 + ((i * 0.21) % 0.85);
-  const delay = ((i * 0.137) % 0.9) * -1; // negative so they're already mid-cycle
+  const delay = ((i * 0.137) % 0.9) * -1;
   const baseScale = 0.3 + ((i * 0.31) % 0.55);
   return { dur, delay, baseScale };
 });
@@ -32,6 +35,7 @@ const seeds = Array.from({ length: props.bars }, (_, i) => {
 <template>
   <span
     class="eq-root inline-flex items-end"
+    :class="active ? 'is-active' : 'is-paused'"
     :style="{ height: `${height}px`, gap: `${gap}px`, color }"
     aria-hidden="true"
   >
@@ -50,9 +54,6 @@ const seeds = Array.from({ length: props.bars }, (_, i) => {
 </template>
 
 <style scoped>
-.eq-root {
-  /* Nothing here — bars handle their own anim */
-}
 .eq-bar {
   display: inline-block;
   height: 100%;
@@ -61,6 +62,13 @@ const seeds = Array.from({ length: props.bars }, (_, i) => {
   transform: scaleY(var(--base));
   animation: eq-pulse linear infinite alternate;
   will-change: transform;
+  animation-play-state: running;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.is-paused .eq-bar {
+  animation-play-state: paused;
+  transform: scaleY(0.18);
 }
 
 @keyframes eq-pulse {
