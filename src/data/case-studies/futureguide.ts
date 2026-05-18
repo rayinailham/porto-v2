@@ -27,27 +27,27 @@ export const futureguide: CaseStudy = {
   emphasis: "cool",
   problem: {
     lead:
-      "Career guidance has long-running async work — assessments, analysis, payment, notifications — that shouldn't share a fate with the user-facing API.",
+      "Career guidance has long-running async work — assessments, analysis, payment, notifications — that has no business sharing fate with the user-facing API.",
     body: [
-      "A monolith would have made the assessment scoring loop block authentication latency. A naive 'split everything into a service' approach would have created a distributed monolith. FutureGuide needed a coordinated set of services where each one owns its domain and talks via well-defined contracts.",
-      "Nine services, one shared package — kept honest by clean architecture boundaries and contract-first messaging.",
+      "A monolith would mean the assessment scoring loop blocks auth latency. The naive 'split everything into a service' move would just create a distributed monolith. FutureGuide needed a coordinated set of services where each one owns its domain and talks through clean contracts.",
+      "Nine services, one shared package — kept honest by clean architecture boundaries and contract-first messaging. No drift, no surprises.",
     ],
   },
   decisions: [
     {
       title: "Service boundary by domain, not by entity",
       body:
-        "auth-service, assessment-service, analysis-worker, chat-service, payment-service, admin-service, notification-service, ecosystem-futureguide, plus a `shared` package for contracts only. Each service owns its persistence; cross-service reads go through APIs or events.",
+        "auth-service, assessment-service, analysis-worker, chat-service, payment-service, admin-service, notification-service, ecosystem-futureguide, plus a `shared` package for contracts only. Each service owns its own persistence; cross-service reads go through APIs or events.",
     },
     {
       title: "RabbitMQ for fan-out, REST for query",
       body:
-        "Assessment completion fans out to analysis-worker + notification-service via Rabbit topics. Synchronous reads stay REST so latency budgets are still observable per call.",
+        "Assessment completion fans out to analysis-worker + notification-service via Rabbit topics. Synchronous reads stay REST so the latency budget is still observable per call.",
     },
     {
       title: "Clean architecture per service",
       body:
-        "Each service has the same shape: `cmd/`, `internal/usecase`, `internal/adapter`, `internal/entity`. New engineers context-switch in minutes — the directory map is the same everywhere.",
+        "Each service has the same shape: `cmd/`, `internal/usecase`, `internal/adapter`, `internal/entity`. New engineers onboard in minutes — the directory map is the same everywhere.",
     },
   ],
   architectureDiagram: {
@@ -102,7 +102,7 @@ export const futureguide: CaseStudy = {
     {
       title: "Keeping nine services from drifting",
       problem:
-        "Each service evolves independently. Without enforcement, the directory shape, error handling, and DI wiring would diverge, and onboarding cost would compound per service.",
+        "Each service evolves on its own. With no enforcement, the directory shape, error handling, and DI wiring all drift, and onboarding cost compounds per service.",
       solution:
         "A `shared` package owns DTOs, error envelopes, and Rabbit message contracts. Every service uses the same `internal/` layout and the same fx module signature. A linter check enforces the layered import direction (`adapter` → `usecase` → `entity`).",
     },
@@ -111,12 +111,12 @@ export const futureguide: CaseStudy = {
       problem:
         "analysis-worker and notification-service both consume `assessment.completed`. A redelivered message must not double-score and must not double-notify.",
       solution:
-        "Every event carries a `correlation_id`. Consumers persist `(consumer, correlation_id)` in a tiny `processed_events` table inside their own DB before acting. The action and the marker live in the same transaction.",
+        "Every event carries a `correlation_id`. Consumers persist `(consumer, correlation_id)` in a tiny `processed_events` table inside their own DB before acting. The action and the marker live in the same transaction — atomic by construction.",
     },
   ],
   outcome: {
     lead:
-      "A maintainable Go ecosystem where each service is small, the contracts are explicit, and async paths don't poison sync latency.",
+      "A maintainable Go ecosystem where each service is small, the contracts are explicit, and async paths stay out of the sync latency budget.",
     metrics: [
       { value: "9", label: "cooperating services" },
       { value: "1", label: "shared contract package" },

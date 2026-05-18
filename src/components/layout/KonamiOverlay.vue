@@ -3,9 +3,11 @@
  * Konami code easter egg overlay.
  * Sequence: ↑ ↑ ↓ ↓ ← → ← → B A
  * - Triggers once per session (sessionStorage flag)
- * - Auto-fades after 3s, dismissible by Esc / click outside / dismiss button
+ * - Auto-fades after 6s, dismissible by Esc / click outside / dismiss button
+ * - Offers a soft hand-off to the unlisted /sui transmission page
  */
 import { onBeforeUnmount, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
 
 const SEQUENCE = [
   "ArrowUp",
@@ -21,6 +23,7 @@ const SEQUENCE = [
 ];
 const SESSION_KEY = "konami:fired";
 
+const router = useRouter();
 const open = ref(false);
 const buffer: string[] = [];
 let autoTimer: number | null = null;
@@ -57,13 +60,18 @@ const trigger = () => {
   }
   open.value = true;
   if (autoTimer !== null) window.clearTimeout(autoTimer);
-  autoTimer = window.setTimeout(() => dismiss(), 3000);
+  autoTimer = window.setTimeout(() => dismiss(), 6000);
 };
 
 const dismiss = () => {
   open.value = false;
   if (autoTimer !== null) window.clearTimeout(autoTimer);
   autoTimer = null;
+};
+
+const visitSui = () => {
+  dismiss();
+  router.push("/sui");
 };
 
 onMounted(() => {
@@ -142,6 +150,19 @@ onBeforeUnmount(() => {
             Dismiss · esc
           </button>
         </div>
+
+        <!-- Sui hand-off — only visible when overlay fires -->
+        <button
+          type="button"
+          class="group mt-6 flex w-full items-baseline justify-between gap-4 border-t border-line pt-5 text-left font-mono text-mono-xs uppercase text-accent-warm transition-colors duration-300 hover:text-ink-primary"
+          @click="visitSui"
+        >
+          <span class="inline-flex items-center gap-2">
+            <span class="text-ink-faint">→</span>
+            <span class="link-underline">Open // sui transmission</span>
+          </span>
+          <span class="text-ink-faint">/sui · unlisted</span>
+        </button>
       </div>
     </div>
   </Transition>

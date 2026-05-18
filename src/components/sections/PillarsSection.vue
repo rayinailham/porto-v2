@@ -29,12 +29,12 @@ import MonoChip from "@/components/ui/MonoChip.vue";
           class="reveal-init col-span-12 max-w-[24ch] font-display text-display-md text-ink-primary lg:col-span-8 track-snug"
           data-split="words"
         >
-          One engineer, <span class="italic-accent text-ink-primary">three operating modes</span> —
-          <span class="text-ink-muted">all shipped, <span class="italic-accent">none theoretical.</span></span>
+          One engineer, <span class="italic-accent text-ink-primary">three modes</span> —
+          <span class="text-ink-muted">all of it <span class="italic-accent">already running in prod.</span></span>
         </h2>
         <p class="reveal-init col-span-12 max-w-[36ch] text-body-md text-ink-muted lg:col-span-4 lg:text-right">
-          Backend depth, microservice topology, and practical AI converge in
-          three signature builds.
+          Backend, microservice, and AI — actually shipped, not just sitting
+          pretty in a README.
         </p>
       </div>
 

@@ -28,11 +28,11 @@ import { stackGroups } from "@/data/portfolio";
           class="reveal-init col-span-12 max-w-[18ch] font-display text-display-md text-ink-primary lg:col-span-8 track-snug"
           data-split="words"
         >
-          Opinionated, <span class="italic-accent text-ink-muted">not omnivorous.</span>
+          Opinionated, <span class="italic-accent text-ink-muted">not a buffet.</span>
         </h2>
         <p class="reveal-init col-span-12 max-w-[40ch] text-body-md text-ink-muted lg:col-span-4 lg:text-right">
-          The default tools for the job. Everything below has shipped in the
-          last six months. Not a wishlist.
+          The defaults I actually reach for. Everything below has shipped in
+          the last six months. Not a wishlist.
         </p>
       </div>
 

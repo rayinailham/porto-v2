@@ -31,22 +31,22 @@ export const tetraEngine: CaseStudy = {
   emphasis: "warm",
   problem: {
     lead:
-      "AnterAja's warehouse operations needed a deterministic package recommendation system that could keep up with Flux WMS without becoming the bottleneck.",
+      "AnterAja's warehouse ops needed a deterministic package recommendation system that could keep up with Flux WMS without becoming the bottleneck.",
     body: [
-      "AnterAja issued this as a technical entrance challenge: build a system that pulls orders from Flux WMS, computes the optimal carton — by volume, weight, and per-item fit — and pushes the recommendation back to Flux. The system had to be idempotent, observable, and never silently double-process a sync window.",
-      "What started as a take-home brief became a publishable microservice — released with permission, sharpened past the brief into a Go-first reference implementation for warehouse-grade scheduling.",
+      "AnterAja issued this as a technical entrance challenge: build a system that pulls orders from Flux WMS, computes the optimal carton — by volume, weight, and per-item fit — and pushes the recommendation back to Flux. Had to be idempotent, observable, and never silently double-process a sync window.",
+      "What started as a take-home brief turned into a publishable microservice — released with permission and pushed past the brief into a Go-first reference implementation for warehouse-grade scheduling.",
     ],
   },
   decisions: [
     {
       title: "Why uber-go/fx over plain DI",
       body:
-        "fx gives compile-time wiring with explicit lifecycle hooks. Stage transitions in the scheduler need ordered start/stop semantics — fx.Hook handles graceful shutdown without racing the database pool.",
+        "fx gives compile-time wiring plus explicit lifecycle hooks. Stage transitions in the scheduler need ordered start/stop semantics — fx.Hook handles graceful shutdown without racing the database pool.",
     },
     {
       title: "Why sqlx over an ORM",
       body:
-        "Warehouse logic is query-shaped, not entity-shaped. sqlx keeps the SQL inspectable in `internal/repository/`, reusable across read replicas, and avoids the leaky abstractions that an ORM would introduce on top of a fast-moving schema.",
+        "Warehouse logic is query-shaped, not entity-shaped. sqlx keeps SQL inspectable in `internal/repository/`, reusable across read replicas, and avoids the leaky abstractions an ORM would smear on a fast-moving schema.",
     },
     {
       title: "Why a 4-stage scheduler",
@@ -56,7 +56,7 @@ export const tetraEngine: CaseStudy = {
     {
       title: "Why Vue 3 + Vite for the dashboard",
       body:
-        "Operations needed a glassmorphism monitoring dashboard, not a CMS. Vite's HMR and Vue's reactivity gave a tight feedback loop while iterating on the metric strip and stage timeline.",
+        "Ops needed a real-time monitoring dashboard, not a CMS. Vite's HMR and Vue's reactivity gave a tight feedback loop while iterating on the metric strip and stage timeline.",
     },
   ],
   architectureDiagram: {
@@ -95,21 +95,21 @@ export const tetraEngine: CaseStudy = {
     {
       title: "Idempotent stage transitions without distributed locks",
       problem:
-        "Re-running a stage after a crash had to be safe. Without distributed locks, the simple-but-wrong approach is to mark a stage 'done' before its side effects land — which loses work on partial failures.",
+        "Re-running a stage after a crash had to be safe. Without distributed locks, the easy-but-wrong move is to mark a stage 'done' before its side effects land — which loses work on partial failures.",
       solution:
-        "Each stage commits a checkpoint row in the same transaction that produces its output. If the stage crashes mid-transaction, the checkpoint is never written and the next run resumes cleanly. The push stage uses (order_id, sync_window) as a natural deduplication key when calling Flux.",
+        "Each stage commits a checkpoint row inside the same transaction that produces its output. If the stage crashes mid-transaction, the checkpoint never gets written and the next run resumes cleanly. The push stage uses `(order_id, sync_window)` as a natural dedup key when calling Flux.",
     },
     {
       title: "Auto-schema migration without downtime",
       problem:
-        "The schema was iterating fast during the entrance challenge. Manually running golang-migrate before each deploy was friction; auto-running migrations on boot risked half-migrated states across replicas.",
+        "The schema iterated fast during the entrance challenge. Manually running golang-migrate before each deploy was friction; auto-running on boot risked half-migrated states across replicas.",
       solution:
-        "An advisory-lock-gated migration step runs inside fx's startup hook. Only one node holds the lock at a time, the rest wait, and the application doesn't accept traffic until migrations are at the expected version. ServiceVersion is wired into the DI graph so `/healthz` reports the schema state too.",
+        "An advisory-lock-gated migration step runs inside fx's startup hook. Only one node holds the lock at a time, the rest wait, and the app doesn't accept traffic until migrations are at the expected version. ServiceVersion is wired into the DI graph so `/healthz` reports the schema state too.",
     },
   ],
   outcome: {
     lead:
-      "A small, opinionated Go service that AnterAja's brief now ships to public — observable, idempotent, and ready to slot into a wider warehouse mesh.",
+      "A small, opinionated Go service that AnterAja's brief now ships to the public — observable, idempotent, and ready to drop into a wider warehouse mesh.",
     metrics: [
       { value: "4", label: "stage scheduler" },
       { value: "<2s", label: "cold start incl. fx graph" },

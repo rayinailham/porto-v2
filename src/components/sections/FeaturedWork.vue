@@ -42,11 +42,11 @@ const statusColor = (s: "active" | "shipped" | "ongoing") =>
           class="reveal-init col-span-12 max-w-[22ch] font-display text-display-md text-ink-primary lg:col-span-8 track-snug"
           data-split="words"
         >
-          Selected work, <span class="italic-accent text-ink-muted">with the receipts.</span>
+          Selected work, <span class="italic-accent text-ink-muted">receipts attached.</span>
         </h2>
         <p class="reveal-init col-span-12 max-w-[40ch] text-body-md text-ink-muted lg:col-span-4 lg:text-right">
-          A subset of what's public — chosen for impact, architectural depth,
-          and the parts I'd happily defend in code review.
+          Slice of the public stuff — picked for impact, architecture depth,
+          and the bits I'd still defend in code review.
         </p>
       </div>
 

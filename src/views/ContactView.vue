@@ -26,7 +26,7 @@ const channels: Channel[] = [
     label: "Email",
     handle: "rayinailham9@gmail.com",
     href: "mailto:rayinailham9@gmail.com",
-    note: "Best for project briefs and offers · I reply within 24h.",
+    note: "Best for project briefs and offers — I usually reply inside 24h.",
     primary: true,
   },
   {
@@ -34,14 +34,14 @@ const channels: Channel[] = [
     label: "LinkedIn",
     handle: "linkedin.com/in/rayinailham",
     href: "https://linkedin.com/in/rayinailham",
-    note: "For recruiter conversations and longer-form intros.",
+    note: "For recruiter chats and longer intros.",
   },
   {
     num: "03",
     label: "GitHub",
     handle: "github.com/rayinailham",
     href: "https://github.com/rayinailham",
-    note: "Source of truth for everything I've shipped publicly.",
+    note: "Source of truth for everything I've shipped publicly. Receipts.",
   },
 ];
 </script>
@@ -76,8 +76,8 @@ const channels: Channel[] = [
           </span>
         </h1>
         <p class="reveal-init mt-10 max-w-[52ch] text-body-lg text-ink-muted">
-          Three channels, no form. Pick whichever lines up with your context — I
-          read all of them.
+          Three channels, no form. Pick whichever fits your context — I read
+          all of them.
         </p>
       </div>
     </section>
@@ -150,7 +150,7 @@ const channels: Channel[] = [
             <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Reply window</dt>
             <dd class="mt-4 inline-flex items-center gap-2 font-display text-[clamp(1.05rem,1.5vw,1.25rem)] font-semibold tracking-[-0.025em] text-ink-primary">
               <StatusDot color="success" />
-              &lt; 24 hours · weekdays
+              &lt; 24 hrs · weekdays
             </dd>
           </div>
           <div class="reveal-init border-t border-line px-6 py-8 md:border-l md:border-t-0 md:px-8 md:py-10">

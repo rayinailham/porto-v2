@@ -38,9 +38,9 @@ import AppButton from "@/components/ui/AppButton.vue";
           </h2>
 
           <p class="reveal-init mt-10 max-w-[48ch] text-body-md text-ink-muted">
-            Looking for a senior backend &amp; AI engineer who can move from
-            architecture diagram to production code without losing the thread?
-            Drop a line — I reply within a working day.
+            Need a senior backend &amp; AI engineer who can take a project from
+            architecture diagram to prod without the wheels falling off
+            mid-way? Hit me up — I usually reply within a working day.
           </p>
 
           <div class="reveal-init mt-12 flex flex-wrap items-center gap-4">
@@ -71,7 +71,7 @@ import AppButton from "@/components/ui/AppButton.vue";
             <div class="flex items-baseline justify-between gap-4 py-4">
               <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Reply</dt>
               <dd class="font-display text-[14.5px] font-medium tracking-[-0.012em] text-ink-primary">
-                &lt; 24 hours
+                &lt; 24 hrs
               </dd>
             </div>
             <div class="flex items-baseline justify-between gap-4 py-4">
@@ -94,7 +94,7 @@ import AppButton from "@/components/ui/AppButton.vue";
             </div>
           </dl>
           <p class="reveal-init mt-6 max-w-[36ch] text-body-sm text-ink-muted">
-            Based in Indonesia. Remote-friendly across timezones. Indonesian
+            Based in Indonesia, remote-friendly across timezones. Indonesian
             native, business English, basic Japanese.
           </p>
         </aside>

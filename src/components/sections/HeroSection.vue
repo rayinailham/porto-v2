@@ -31,8 +31,8 @@ import MonoChip from "@/components/ui/MonoChip.vue";
               <span>A — Practice</span>
             </div>
             <p class="mt-3 max-w-[26ch] text-body-md text-ink-muted">
-              Multi-service systems with AI inside — warehouse automation, RAG
-              products, vision and audio pipelines.
+              Multi-service systems with AI under the hood — warehouse
+              automation, RAG products, vision and audio pipelines.
             </p>
           </div>
 

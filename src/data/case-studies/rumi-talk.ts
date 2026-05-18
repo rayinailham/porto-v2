@@ -26,27 +26,27 @@ export const rumiTalk: CaseStudy = {
   emphasis: "neutral",
   problem: {
     lead:
-      "Most persona chatbots are vibes — wrap a model in a system prompt and call it a day. That's brittle, breaks on niche topics, and can't cite anything.",
+      "Most persona chatbots are pure vibes — wrap a model in a system prompt and call it a day. That's brittle, breaks on niche topics, and can't cite anything.",
     body: [
-      "Rumi-Talk treats the persona as a retrieval problem first, generation problem second. The corpus — translated quatrains, biographical context, thematic notes — lives in pgvector. The model gets retrieval results plus a constrained prompt and streams a grounded reply, optionally voiced via TTS.",
-      "Built as a Nuxt 4 fullstack monorepo so the Vue frontend and the server route handlers share types end to end.",
+      "Rumi-Talk treats the persona as a retrieval problem first, generation problem second. The corpus — translated quatrains, biographical context, thematic notes — lives in pgvector. The model gets retrieval results plus a tight prompt and streams a grounded reply, with optional TTS audio on top.",
+      "Built as a Nuxt 4 fullstack monorepo so the Vue frontend and the server routes share types end to end — no DTO drift between client and server.",
     ],
   },
   decisions: [
     {
       title: "Why pgvector over a dedicated vector DB",
       body:
-        "Supabase's pgvector kept the entire stack on one Postgres instance — no extra ops surface, queries can JOIN against metadata, and the same RLS policies apply to retrieval and storage.",
+        "Supabase's pgvector kept the whole stack on one Postgres — no extra ops surface, queries can JOIN against metadata, and the same RLS policies apply to retrieval and storage. One DB, one mental model.",
     },
     {
-      title: "Why OpenRouter, not a single model",
+      title: "Why OpenRouter instead of a single model",
       body:
-        "OpenRouter abstracts the provider so the persona prompt is decoupled from any one model's quirks. Swapping between Claude, Gemini, and DeepSeek for tone tests took one config change.",
+        "OpenRouter abstracts the provider, so the persona prompt isn't tied to any one model's quirks. Swapping between Claude, Gemini, and DeepSeek for tone tests was a one-line config change.",
     },
     {
       title: "Why streaming first, TTS second",
       body:
-        "Tokens stream into the UI as they arrive; TTS is generated for completed sentence chunks asynchronously. Users see the reply immediately and the audio catches up — no awkward 6-second silence before the persona 'speaks'.",
+        "Tokens stream into the UI as they arrive; TTS gets generated for completed sentence chunks in parallel. Users see the reply immediately and the audio catches up — no awkward 6-second silence before Rumi 'speaks'.",
     },
   ],
   architectureDiagram: {
@@ -78,21 +78,21 @@ export const rumiTalk: CaseStudy = {
     {
       title: "Keeping the persona grounded without hard rails",
       problem:
-        "Off-topic prompts pulled the model into generic LLM voice. Hard refusals broke the experience. The persona had to redirect, not refuse.",
+        "Off-topic prompts pulled the model into generic LLM voice. Hard refusals broke the vibe. The persona had to redirect, not refuse.",
       solution:
-        "Retrieval results are attached to the prompt with explicit `source` markers. The system prompt instructs the model to weave a Rumi-flavored response that cites the retrieved fragments. When retrieval similarity drops below a threshold, the model is told to acknowledge the divergence in-character instead of refusing.",
+        "Retrieval results get attached to the prompt with explicit `source` markers, and the system prompt tells the model to weave a Rumi-flavored response that cites the retrieved fragments. When retrieval similarity drops below a threshold, the model acknowledges the divergence in-character instead of bailing out.",
     },
     {
       title: "TTS without blocking text streaming",
       problem:
-        "Synchronous TTS would have made the first audible word arrive after the full text was generated.",
+        "Synchronous TTS would mean the first audible word arrives only after the full text is done generating. Dealbreaker.",
       solution:
-        "The Nuxt server route fans out the LLM token stream to two consumers: the SSE channel for text and a sentence buffer that triggers TTS as each sentence completes. Audio chunks arrive on a parallel SSE event type — the client plays them as they land.",
+        "The Nuxt server route fans the LLM token stream to two consumers: an SSE channel for text and a sentence buffer that triggers TTS on each completed sentence. Audio chunks ride a separate SSE event type — the client plays them as they land.",
     },
   ],
   outcome: {
     lead:
-      "A niche concept executed with modern infrastructure — RAG, streaming, and synthesised audio working together without choreography pain.",
+      "Niche concept, modern infrastructure — RAG, streaming, and synthesised audio working together without orchestration pain.",
     metrics: [
       { value: "RAG + TTS", label: "streaming pipeline" },
       { value: "1", label: "Postgres for everything" },

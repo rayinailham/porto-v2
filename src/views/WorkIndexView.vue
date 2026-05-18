@@ -68,7 +68,7 @@ const statusColor = (s?: "active" | "shipped" | "ongoing") =>
               <span class="text-ink-faint">/ {{ String(allProjects.length).padStart(2, '0') }}</span>
             </div>
             <p class="mt-4 max-w-[36ch] text-body-md text-ink-muted">
-              Filter by what matters to you. Three projects have full case
+              Filter by whatever matters to you. Three projects have full case
               studies; the rest link straight to the repo.
             </p>
           </div>

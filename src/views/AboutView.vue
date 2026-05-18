@@ -35,7 +35,7 @@ const arc: Beat[] = [
     span: "Foundations",
     title: "Android-first, then a sharp pivot.",
     body:
-      "Started serious work in Kotlin + Jetpack Compose, with a Flutter side experiment. The Android year was less about shipping apps and more about absorbing structure: lifecycle, MVVM, layered code. Right at the tail end of the year that mental model started looking for a bigger surface to apply itself to.",
+      "Started serious work in Kotlin + Jetpack Compose, with a Flutter side experiment. The Android year wasn't really about shipping apps — it was about absorbing structure: lifecycle, MVVM, layered code. By the tail end of the year that mental model was itching for a bigger playground.",
     stack: ["Kotlin", "Jetpack Compose", "Flutter"],
   },
   {
@@ -43,7 +43,7 @@ const arc: Beat[] = [
     span: "Anevia · capstone year",
     title: "Healthcare AI, full-stack capstone.",
     body:
-      "Anevia was the proof: backend in Hapi.js + Postgres + Firebase, AI service in FastAPI + TensorFlow + YOLOv8 + OpenCV — a two-step model pipeline detecting anemia from conjunctiva. The capstone forced every layer at once and cemented two preferences: clean separation between API and inference, and Postgres-anchored architectures.",
+      "Anevia was the proof: backend in Hapi.js + Postgres + Firebase, AI service in FastAPI + TensorFlow + YOLOv8 + OpenCV — a two-step model pipeline detecting anemia from conjunctiva. Capstone forced every layer at once. Two preferences stuck after that: clean separation between API and inference, and Postgres-anchored architectures.",
     stack: ["Hapi.js", "FastAPI", "TensorFlow", "YOLOv8", "Postgres"],
   },
   {
@@ -51,7 +51,7 @@ const arc: Beat[] = [
     span: "Go-first · microservice maturity",
     title: "The opinionated stack lands.",
     body:
-      "Go 1.24 + uber-go/fx + sqlx became the default. Built FutureGuide as nine cooperating Go services, took on Tetra Engine as AnterAja's technical entrance challenge, and shipped Rumi-Talk to keep the AI muscle warm. The pattern is set: clean architecture per service, contract-first messaging, ship the boring parts boring.",
+      "Go 1.24 + uber-go/fx + sqlx became the default. Built FutureGuide as nine cooperating Go services, took on Tetra Engine as AnterAja's technical entrance challenge, and shipped Rumi-Talk to keep the AI muscle warm. Pattern's locked in: clean architecture per service, contract-first messaging, ship the boring parts boring.",
     stack: ["Go 1.24", "uber-go/fx", "sqlx", "RabbitMQ", "pgvector"],
   },
 ];
@@ -75,7 +75,7 @@ const orgs: OrgBeat[] = [
   },
   {
     name: "WIS-pptgenerator",
-    body: "AI PPT generator with Xendit payment integration. TS + Python microservice combo.",
+    body: "AI PPT generator wired up with Xendit payments. TS + Python microservice combo.",
     href: "https://github.com/WIS-pptgenerator",
   },
 ];
@@ -91,37 +91,37 @@ const beliefs: Belief[] = [
     num: "01",
     title: "Architecture beats cleverness.",
     body:
-      "The 'wow' line of code is a vanity metric. A boring system that fails predictably and recovers cleanly will outrun a clever system every quarter.",
+      "The 'wow' line of code is a vanity metric. A boring system that fails predictably and recovers cleanly will outrun a clever one every quarter. Hands down.",
   },
   {
     num: "02",
     title: "Postgres is the answer until proven otherwise.",
     body:
-      "From relational data to vectors with pgvector, from cache to queue with LISTEN/NOTIFY — Postgres covers more ground than people give it credit for.",
+      "From relational data to vectors with pgvector, from cache to queue with LISTEN/NOTIFY — Postgres covers way more ground than people give it credit for.",
   },
   {
     num: "03",
     title: "Async is a contract, not a vibe.",
     body:
-      "Every event has a correlation_id, a topic, and a documented consumer. If you can't draw the fan-out on a napkin, the design isn't done.",
+      "Every event has a correlation_id, a topic, and a documented consumer. If you can't sketch the fan-out on a napkin, the design isn't done.",
   },
   {
     num: "04",
     title: "Ship the dashboard.",
     body:
-      "An invisible system is an unreliable system. Every backend project I take seriously gets a thin operational UI — not because users want it, but because future-me does.",
+      "An invisible system is an unreliable one. Every backend project I take seriously gets a thin operational UI — not because users want it, but because future-me does.",
   },
 ];
 
 // Off-clock — text rotator for "now playing" line
 const nowPlaying = [
-  { kind: "Build", value: "Carian Sorcery Sword + parry" },
+  { kind: "Build", value: "Carian sorcery sword + parry" },
   { kind: "Sidearm", value: "Milady — she catches the rhythm" },
   { kind: "Mobile", value: "Chaos Zero : Nightmare" },
   { kind: "Stream", value: "Hoshimachi Suisei · Isaki Riona · Kokage Tsumugi" },
-  { kind: "Anime", value: "Clevatess (blind run, Alicia stuck)" },
-  { kind: "Loop", value: "Kaiki Deishu's theme" },
-  { kind: "Mascot", value: "Frostlass · 6% win-rate engineering" },
+  { kind: "Anime", value: "Clevatess (blind run, Alicia stuck the landing)" },
+  { kind: "Loop", value: "Kaiki Deishu's theme — on repeat" },
+  { kind: "Mascot", value: "Frostlass · 6% win-rate but it's fire 🔥" },
 ];
 const npIdx = useTextRotator(nowPlaying.length, 3400);
 </script>
@@ -163,9 +163,9 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
         <div class="mt-section-sm grid grid-cols-12 gap-x-6 gap-y-12">
           <p class="reveal-init col-span-12 max-w-[52ch] text-body-lg text-ink-muted lg:col-span-7">
             I'm Rayina Ilham — engineer based in Indonesia. I design and ship
-            multi-service systems with AI inside, from concept to production. My
-            line of work sits where backend depth, microservice topology, and
-            practical AI converge.
+            multi-service systems with AI under the hood, from concept all the
+            way to prod. My day-to-day sits at the spot where backend depth,
+            microservice topology, and practical AI all overlap.
           </p>
           <dl class="col-span-12 grid grid-cols-2 lg:col-span-5">
             <div class="reveal-init border-l border-line px-5 py-3 first:border-l-0 first:pl-0">
@@ -220,8 +220,8 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
             Three years, <span class="italic-accent text-ink-muted">three operating modes.</span>
           </h2>
           <p class="reveal-init col-span-12 max-w-[40ch] text-body-md text-ink-muted lg:col-span-5 lg:text-right">
-            Each year inherits the previous year's structural lessons and applies
-            them to a bigger surface.
+            Each year picks up the lessons from the last one and aims them at a
+            bigger surface.
           </p>
         </div>
 
@@ -323,8 +323,8 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
             Where I lead, <span class="italic-accent text-ink-muted">not just contribute.</span>
           </h2>
           <p class="reveal-init col-span-12 max-w-[36ch] text-body-md text-ink-muted lg:col-span-5 lg:text-right">
-            Beyond personal repos, I drive architecture and delivery for several
-            GitHub organizations.
+            Outside my own repos, I drive architecture and delivery for a
+            handful of GitHub organizations.
           </p>
         </div>
 
@@ -399,22 +399,22 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
 
         <div class="grid grid-cols-12 gap-x-6 gap-y-12 pt-12">
           <h2 class="reveal-init col-span-12 max-w-[16ch] font-display text-display-md text-ink-primary track-snug lg:col-span-5" data-split="words">
-            The other half — <span class="italic-accent text-ink-muted">what runs when the IDE is closed.</span>
+            The other half — <span class="italic-accent text-ink-muted">what's running when the IDE's closed.</span>
           </h2>
           <div class="col-span-12 lg:col-span-7">
             <p class="reveal-init max-w-[52ch] text-body-lg text-ink-primary">
-              I code better when there's a Hololive stream on a second monitor.
+              I code better with a Hololive stream on the second monitor, ngl.
               <span class="italic-accent text-ink-primary">Hoshimachi Suisei</span> and
-              <span class="italic-accent text-ink-primary">Isaki Riona</span> are the regulars,
-              with <span class="italic-accent text-ink-muted">Kokage Tsumugi</span> from VSPO
-              dropping in. I clip on the side, which is where the After Effects and Premiere
-              skills come from.
+              <span class="italic-accent text-ink-primary">Isaki Riona</span> are
+              the regulars, with <span class="italic-accent text-ink-muted">Kokage Tsumugi</span> from VSPO
+              dropping in. I clip on the side too — that's where the After
+              Effects and Premiere skills come from.
             </p>
             <p class="reveal-init mt-6 max-w-[52ch] text-body-md text-ink-muted">
               Languages: Indonesian (native), English (business), Japanese
-              (basic). The Japanese is mostly so I understand the streams in real
-              time — turns out it's also useful for reading source code from
-              Japanese OSS authors.
+              (basic). The Japanese is mostly so I can follow the streams in
+              real time — turns out it's also handy for reading source code
+              from Japanese OSS authors.
             </p>
           </div>
         </div>
@@ -464,12 +464,13 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
               <span class="text-ink-faint">ELDEN RING</span>
             </div>
             <h3 class="font-display text-[clamp(1.5rem,2vw,1.85rem)] font-semibold tracking-[-0.03em] text-ink-primary">
-              <span class="italic-accent">Carian Sorcery Sword</span> + parry
+              <span class="italic-accent">Carian sorcery sword</span> + parry
             </h3>
             <p class="max-w-[36ch] text-body-md text-ink-muted">
-              FTH/STR, Full STR, Parry + knife — all retired runs. Currently:
-              sorcery in the right hand, parry shield in the left. Sidearm of choice still
-              <span class="italic-accent text-ink-primary">Milady</span>.
+              FTH/STR, Full STR, Parry + knife — all retired. Right now: sorcery
+              in the right hand, parry shield in the left. Sidearm's still
+              <span class="italic-accent text-ink-primary">Milady</span>. Build's
+              a vibe.
             </p>
           </article>
 
@@ -485,8 +486,9 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
               <span class="italic-accent">Frostlass</span>
             </h3>
             <p class="max-w-[36ch] text-body-md text-ink-muted">
-              Weak by spec, sharper by play. If the win condition exists, I'll
-              find it inside her potential ceiling.
+              Weak on paper, busted in play. If there's a win condition buried
+              in there, I'll find it. This shit fire 🔥 — or cold, I guess.
+              It's a Frostlass. You know.
             </p>
           </article>
 
@@ -503,7 +505,8 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
             </h3>
             <p class="max-w-[36ch] text-body-md text-ink-muted">
               Went in blind, stayed for <span class="italic-accent text-ink-primary">Alicia</span> —
-              mature, never acts on emotion. Quiet engineering trait.
+              never moves on emotion. Damn. That's an engineering trait,
+              honestly.
             </p>
           </article>
         </div>
@@ -515,7 +518,7 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
             <div class="flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle">
               <span class="inline-flex items-center gap-3">
                 <span class="text-ink-faint">B.04</span>
-                <span>Off-clock telemetry</span>
+                <span>Off-clock log</span>
               </span>
               <span class="text-ink-muted">log · open</span>
             </div>
@@ -531,7 +534,7 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
                 <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Tabletop / dungeon</dt>
                 <dd class="font-display text-[clamp(1rem,1.3vw,1.2rem)] font-medium tracking-[-0.022em] text-ink-primary">
                   <span class="italic-accent">Darkest Dungeon I</span>
-                  <span class="ml-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">only the original</span>
+                  <span class="ml-2 font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">OG only</span>
                 </dd>
               </div>
               <div class="flex flex-wrap items-baseline justify-between gap-4 py-5">
@@ -543,7 +546,7 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
               <div class="flex flex-wrap items-baseline justify-between gap-4 py-5">
                 <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Watched · approx</dt>
                 <dd class="font-display text-[clamp(1rem,1.3vw,1.2rem)] font-medium tracking-[-0.022em] text-ink-primary num-tabular">
-                  hundreds, possibly <span class="italic-accent">a thousand</span>
+                  hundreds, maybe a <span class="italic-accent">thousand ngl</span>
                 </dd>
               </div>
               <div class="flex flex-wrap items-baseline justify-between gap-4 py-5">
@@ -555,7 +558,7 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
             </dl>
 
             <div class="reveal-init mt-12 flex flex-wrap items-center gap-4">
-              <AppButton variant="primary" to="/contact">Get in touch</AppButton>
+              <AppButton variant="primary" to="/contact">Hit me up</AppButton>
               <AppButton variant="ghost" to="/work">See selected work</AppButton>
             </div>
           </div>

@@ -96,7 +96,7 @@ export const pillars: Pillar[] = [
     kicker: "Microservice Architect",
     title: "Multi-service ecosystems, end to end.",
     body:
-      "API gateway, message broker, observability — designed and shipped as cohesive product surfaces, not loose services glued at deploy time.",
+      "API gateway, message broker, observability — I wire 'em into one cohesive product, not a pile of services duct-taped together at deploy time.",
     proof: { label: "Reference build", project: "WIS-FutureGuide · 9 services" },
     stack: ["Go", "RabbitMQ", "Postgres", "uber-go/fx"],
   },
@@ -105,7 +105,7 @@ export const pillars: Pillar[] = [
     kicker: "AI Engineer",
     title: "Practical AI in production paths.",
     body:
-      "RAG with pgvector, multi-LLM orchestration, vision and audio pipelines tuned to real hardware budgets. Demos that survive the demo day.",
+      "RAG on pgvector, multi-LLM orchestration, vision and audio pipelines tuned to the hardware I actually have. Demos that don't fall apart on demo day.",
     proof: { label: "Reference build", project: "Rumi-Talk · streaming RAG + TTS" },
     stack: ["pgvector", "OpenRouter", "WhisperX", "YOLOv8"],
   },
@@ -114,7 +114,7 @@ export const pillars: Pillar[] = [
     kicker: "Go-first Backend",
     title: "Clean architecture, opinionated stack.",
     body:
-      "Go 1.24+ with uber-go/fx, sqlx, viper, slog. Layered config, structured errors, and migrations that make ops boring on purpose.",
+      "Go 1.24+ with uber-go/fx, sqlx, viper, slog. Layered config, structured errors, migrations that make ops boring on purpose — that's the goal.",
     proof: { label: "Reference build", project: "Tetra Engine · warehouse engine" },
     stack: ["Go 1.24", "fx", "sqlx", "slog"],
   },
@@ -128,7 +128,7 @@ export const featured: FeaturedProject[] = [
     status: "shipped",
     oneLiner: "Warehouse package recommendation engine.",
     description:
-      "Originally AnterAja's technical entrance challenge — shipped as a working microservice with a 4-stage idempotent scheduler, auto-schema migration, and a glassmorphism monitoring dashboard.",
+      "Started as AnterAja's technical entrance challenge — I kept going and turned it into an actual working microservice. 4-stage idempotent scheduler, auto-schema migration, plus a glassmorphism dashboard for monitoring.",
     role: "Architect · Backend · Dashboard",
     stack: ["Go 1.24", "uber-go/fx", "sqlx", "Postgres", "Vue 3", "Vite"],
     metric: { value: "4-stage", label: "idempotent scheduler" },
@@ -143,9 +143,9 @@ export const featured: FeaturedProject[] = [
     index: "F.02",
     title: "WIS-FutureGuide",
     status: "active",
-    oneLiner: "Career guidance, fully microservice.",
+    oneLiner: "Career guidance, full microservice.",
     description:
-      "Nine cooperating Go services — auth, assessment, analysis-worker, chat, payment, admin, notification — built clean-architecture top to bottom.",
+      "Nine Go services talking to each other — auth, assessment, analysis-worker, chat, payment, admin, notification — clean architecture top to bottom.",
     role: "Lead architect",
     stack: ["Go", "Clean Arch", "RabbitMQ", "Postgres"],
     metric: { value: "9", label: "services in production path" },
@@ -160,9 +160,9 @@ export const featured: FeaturedProject[] = [
     index: "F.03",
     title: "Rumi-Talk",
     status: "shipped",
-    oneLiner: "AI that answers as Jalaluddin Rumi.",
+    oneLiner: "AI that answers like Jalaluddin Rumi.",
     description:
-      "Nuxt 4 fullstack monorepo with Supabase pgvector retrieval, streaming LLM responses, and synthesised TTS. Niche concept, modern execution.",
+      "Nuxt 4 fullstack monorepo, retrieval through Supabase pgvector, streaming LLM responses, plus synthesised TTS. Niche concept, modern execution — turned out fire ngl.",
     role: "Solo build",
     stack: ["Nuxt 4", "TypeScript", "pgvector", "Supabase"],
     metric: { value: "RAG + TTS", label: "streaming pipeline" },
@@ -203,7 +203,7 @@ export const featured: FeaturedProject[] = [
     index: "F.06",
     title: "mydoomscroll",
     status: "shipped",
-    oneLiner: "Vertical video feed · OLED + glassmorphism UX.",
+    oneLiner: "Vertical video feed · OLED + glassmorphism.",
     role: "Fullstack",
     stack: ["CodeIgniter 4", "PHP", "MySQL", "YouTube IFrame"],
     href: "https://github.com/rayinailham/mydoomscroll",

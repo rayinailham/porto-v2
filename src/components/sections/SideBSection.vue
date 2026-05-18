@@ -4,17 +4,21 @@
  * The personal layer of the portfolio. Hobby data presented as if it were
  * production metrics — Swiss restraint with a wink.
  */
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import EqualizerBars from "@/components/ui/EqualizerBars.vue";
 import RegistrationMark from "@/components/ui/RegistrationMark.vue";
+import AudioLoopPlayer from "@/components/ui/AudioLoopPlayer.vue";
 import { useTextRotator } from "@/composables/useTextRotator";
+
+const sectionRef = ref<HTMLElement | null>(null);
+const KAIKI_VIDEO_ID = "vwWMaReMUio";
 
 // Currently-on rotation — cycles every 3.6s
 const onRotation = [
-  { kind: "Build", value: "Carian Sorcery Sword + parry" },
+  { kind: "Build", value: "Carian sorcery sword + parry" },
   { kind: "Mobile", value: "Chaos Zero : Nightmare" },
   { kind: "Stream", value: "Suisei · Riona · Tsumugi" },
-  { kind: "Anime", value: "Clevatess (just finished, blind run)" },
+  { kind: "Anime", value: "Clevatess (just wrapped, blind run)" },
   { kind: "Loop", value: "Kaiki Deishu's theme" },
 ];
 const rotationIdx = useTextRotator(onRotation.length, 3600);
@@ -34,21 +38,21 @@ const cards = [
     kicker: "Mascot of choice",
     title: "Frostlass",
     body:
-      "Weak by spec, sharper by play. If the win condition exists, I'll find it inside her potential ceiling.",
+      "Weak on paper, busted in play. If there's a win condition buried somewhere, I'll find it. This shit fire 🔥 — or cold, I guess. It's a Frostlass. You know.",
     meta: "ICE / GHOST",
   },
   {
     kicker: "Tabletop / dungeon",
     title: "Darkest Dungeon I",
     body:
-      "Only the original — the sequel can wait. Stress is a resource, not a debuff.",
+      "OG only. The sequel can wait. Stress is a resource, not a debuff — change my mind.",
     meta: "RUN · 2024",
   },
   {
-    kicker: "Anime that sticks",
+    kicker: "Anime that hits",
     title: "Yoruwa Mijikashi, Arukeyo Otome",
     body:
-      "Hundreds watched, one stayed. Last finished: Clevatess — went in blind, stayed for Alicia. Mature, never acts on emotion.",
+      "Watched a hundred, this one stuck. Last finished was Clevatess — went in blind, stayed for Alicia. Mature, never acts on emotion. Damn.",
     meta: "ON LOOP",
   },
 ];
@@ -57,6 +61,7 @@ const cards = [
 <template>
   <section
     id="side-b"
+    ref="sectionRef"
     class="relative isolate overflow-hidden border-b border-line py-section"
     data-reveal-group
     aria-labelledby="sideb-heading"
@@ -73,11 +78,11 @@ const cards = [
       >
         <span class="inline-flex items-center gap-3">
           <span class="text-ink-faint">B</span>
-          <span>Side B · off-clock telemetry</span>
+          <span>Side B · what i do for fun</span>
         </span>
         <span class="hidden items-center gap-3 sm:inline-flex">
           <EqualizerBars :bars="7" :height="12" :width="1.5" :gap="3" class="text-accent-warm" />
-          <span class="text-ink-muted">audio · loops</span>
+          <span class="text-ink-muted">audio · on loop</span>
         </span>
       </div>
 
@@ -88,13 +93,13 @@ const cards = [
           class="reveal-init col-span-12 max-w-[22ch] font-display text-display-md text-ink-primary track-snug lg:col-span-8"
           data-split="words"
         >
-          The other half — <span class="italic-accent text-ink-muted">what runs when the IDE is closed.</span>
+          The other half — <span class="italic-accent text-ink-muted">what's running when the IDE's closed.</span>
         </h2>
         <p
           class="reveal-init col-span-12 max-w-[36ch] text-body-md text-ink-muted lg:col-span-4 lg:text-right"
         >
-          Engineers are sharper when the off-time is documented too.
-          File this under context, not credentials.
+          Not work-related. Just so you know who I am once I'm out of the
+          terminal.
         </p>
       </div>
 
@@ -104,7 +109,7 @@ const cards = [
       >
         <div class="col-span-12 md:col-span-3">
           <div class="font-mono text-mono-xs uppercase text-ink-subtle">
-            <span>B.01 — On rotation</span>
+            <span>B.01 — What I'm on</span>
           </div>
         </div>
         <div class="col-span-12 md:col-span-9">
@@ -170,7 +175,7 @@ const cards = [
           <div class="flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle">
             <span class="inline-flex items-center gap-3">
               <span class="text-ink-faint">B.05</span>
-              <span>Tarnished — loadout log</span>
+              <span>Tarnished — build history</span>
             </span>
             <span class="text-ink-muted">runs / 04</span>
           </div>
@@ -201,9 +206,9 @@ const cards = [
           </ol>
 
           <p class="mt-6 max-w-[44ch] text-body-sm text-ink-muted">
-            Currently — Carian sorcery sword in the right hand, parry shield in the left.
-            Sidearm of choice still <span class="italic-accent text-ink-primary">Milady</span>;
-            she catches the rhythm parries do not.
+            Right now — Carian sorcery sword in the right hand, parry shield in
+            the left. Sidearm's still <span class="italic-accent text-ink-primary">Milady</span>;
+            she catches the rhythms parries don't. Build's a vibe, ngl.
           </p>
         </div>
 
@@ -219,27 +224,13 @@ const cards = [
             <RegistrationMark :size="14" :speed="22" reverse />
           </div>
 
-          <div class="mt-8 flex items-end gap-6">
-            <EqualizerBars
-              :bars="11"
-              :height="56"
-              :width="2"
-              :gap="4"
-              class="text-accent-warm"
+          <div class="mt-8">
+            <AudioLoopPlayer
+              :video-id="KAIKI_VIDEO_ID"
+              :trigger="sectionRef"
+              title="Kaiki Deishu's theme"
+              subtitle="signal · monogatari"
             />
-            <div>
-              <div class="font-mono text-mono-xs uppercase text-ink-subtle">
-                Now playing
-              </div>
-              <div
-                class="mt-2 font-display text-[clamp(1.1rem,1.4vw,1.35rem)] font-semibold tracking-[-0.02em] text-ink-primary"
-              >
-                <span class="italic-accent">Kaiki Deishu's theme</span>
-              </div>
-              <div class="mt-1 font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
-                signal · monogatari
-              </div>
-            </div>
           </div>
 
           <dl class="mt-10 divide-y divide-line border-y border-line">
@@ -250,22 +241,21 @@ const cards = [
               </dd>
             </div>
             <div class="flex items-baseline justify-between gap-4 py-3">
-              <dt class="font-mono text-mono-xs uppercase text-ink-subtle">House label</dt>
+              <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Label</dt>
               <dd class="font-display text-[14.5px] font-medium tracking-[-0.012em] text-ink-primary">
                 Hololive / VSPO
               </dd>
             </div>
             <div class="flex items-baseline justify-between gap-4 py-3">
-              <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Latest watch</dt>
+              <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Last watched</dt>
               <dd class="font-display text-[14.5px] font-medium tracking-[-0.012em] text-ink-primary">
                 Clevatess · Alicia
               </dd>
             </div>
           </dl>
 
-          <p class="mt-5 max-w-[36ch] text-body-sm text-ink-muted">
-            <span class="italic-accent text-ink-primary">Alicia</span> — the one
-            who never moves on emotion. Quiet engineering trait, honestly.
+          <p class="mt-5 max-w-[36ch] font-mono text-[10px] uppercase tracking-[0.2em] text-ink-faint">
+            // ambient · low volume · pauses when section leaves view
           </p>
         </aside>
       </div>

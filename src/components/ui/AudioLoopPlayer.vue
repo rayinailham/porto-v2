@@ -105,7 +105,6 @@ const initPlayer = async () => {
       events: {
         onReady: () => {
           ready.value = true;
-          // Lower volume — ambient, not foreground
           try {
             player.value.setVolume(28);
           } catch {
@@ -114,7 +113,18 @@ const initPlayer = async () => {
         },
         onStateChange: (e: { data: number }) => {
           // 1 = playing, 2 = paused, 0 = ended (loop should re-fire)
-          isPlaying.value = e.data === 1;
+          const nowPlaying = e.data === 1;
+          isPlaying.value = nowPlaying;
+          // If user has already interacted at any point, the muted-bootstrap is
+          // no longer needed — unmute as soon as we're actually playing.
+          if (nowPlaying && userInteracted.value && isMuted.value) {
+            try {
+              player.value.unMute();
+              isMuted.value = false;
+            } catch {
+              /* ignore */
+            }
+          }
         },
       },
     });

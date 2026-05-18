@@ -25,7 +25,7 @@ const meta = [
   { label: "Status", value: "Hireable" },
   { label: "Based", value: "Indonesia / UTC+7" },
   { label: "Currently", value: "WIS-FutureGuide" },
-  { label: "Reply", value: "< 24 hours" },
+  { label: "Reply", value: "< 24 hrs" },
 ];
 </script>
 
@@ -48,9 +48,9 @@ const meta = [
 
         <div class="col-span-12 lg:col-span-5 lg:pt-12">
           <p class="max-w-[42ch] text-body-md text-ink-muted">
-            Go-first microservice architect shipping AI in production. Based in
-            Indonesia, deploying everywhere. Open to senior backend &amp; AI
-            engineering roles.
+            Go-first microservice architect, also shipping AI in production.
+            Based in Indonesia, deploying everywhere. Open to senior backend
+            &amp; AI engineering roles — hit the inbox.
           </p>
         </div>
       </div>

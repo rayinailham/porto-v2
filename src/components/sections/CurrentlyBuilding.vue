@@ -37,8 +37,7 @@ useCounter(root);
             class="max-w-[20ch] font-display text-display-md text-ink-primary track-snug"
             data-split="words"
           >
-            Leading <span class="italic-accent text-accent-warm">WIS-FutureGuide</span>, a
-            nine-service Go ecosystem for career guidance — <span class="italic-accent text-ink-muted">in active development.</span>
+            Currently leading <span class="italic-accent text-accent-warm">WIS-FutureGuide</span>, a 9-service Go ecosystem for career guidance — <span class="italic-accent text-ink-muted">still actively shipping.</span>
           </h2>
           <div class="mt-8 flex flex-wrap gap-1.5">
             <MonoChip variant="warm">Go 1.24</MonoChip>
