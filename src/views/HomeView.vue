@@ -9,7 +9,7 @@ import SelectedStack from "@/components/sections/SelectedStack.vue";
 import ClosingCTA from "@/components/sections/ClosingCTA.vue";
 
 const root = ref<HTMLElement | null>(null);
-useReveal(root, { stagger: 0.08, start: "top 88%" });
+useReveal(root);
 </script>
 
 <template>

@@ -3,36 +3,26 @@ import { computed } from "vue";
 import type { FeaturedProject } from "@/data/portfolio";
 import MonoChip from "@/components/ui/MonoChip.vue";
 import StatusDot from "@/components/ui/StatusDot.vue";
-import BlobLight from "@/components/texture/BlobLight.vue";
 
 interface Props {
   project: FeaturedProject;
   tall?: boolean;
+  index: string;
+  total: string;
   statusLabel: string;
   statusColor: "warm" | "cool" | "success" | "muted";
-  emphasis?: "warm" | "cool" | "neutral";
 }
 
 const props = withDefaults(defineProps<Props>(), {
   tall: false,
-  emphasis: "neutral",
 });
-
-const blobColor = computed<"warm" | "cool" | "violet">(() =>
-  props.emphasis === "warm"
-    ? "warm"
-    : props.emphasis === "cool"
-    ? "cool"
-    : "violet",
-);
 
 const isInternal = computed(() => props.project.href.startsWith("/"));
 </script>
 
 <template>
   <article
-    class="group relative isolate overflow-hidden rounded-[28px] border border-line bg-bg-elevated/40 p-1.5 backdrop-blur-md transition-all duration-700 ease-haptic hover:-translate-y-1 hover:border-line-strong"
-    style="box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 30px 80px -50px rgba(0, 0, 0, 0.85);"
+    class="group relative isolate flex h-full flex-col border-l border-line transition-colors duration-700 ease-haptic hover:border-accent-warm"
   >
     <router-link
       v-if="isInternal"
@@ -49,33 +39,15 @@ const isInternal = computed(() => props.project.href.startsWith("/"));
       :aria-label="`Open ${project.title} on GitHub`"
     />
 
-    <!-- Inner core (Double-Bezel inner) -->
-    <div
-      class="relative flex h-full flex-col overflow-hidden rounded-[22px] bg-bg-base/85"
-      :class="
-        tall
-          ? 'p-7 md:p-8 md:min-h-[520px]'
-          : 'p-7 md:p-8 md:min-h-[280px]'
-      "
-    >
-      <BlobLight
-        :color="blobColor"
-        :size="tall ? 380 : 320"
-        x="100%"
-        y="0%"
-        :opacity="0.5"
-        :blur="100"
-      />
-
-      <div class="relative z-10 flex items-center justify-between gap-3">
-        <span
-          class="font-mono text-mono-xs uppercase tracking-[0.2em] text-ink-subtle"
-        >
-          {{ project.index }} · {{ project.role }}
+    <!-- Inner padding -->
+    <div class="flex h-full flex-col px-6 pt-6 pb-7 lg:px-8 lg:pt-8 lg:pb-10">
+      <!-- Top meta row -->
+      <div class="flex items-baseline justify-between gap-3">
+        <span class="font-mono text-mono-xs uppercase text-ink-subtle">
+          <span class="text-ink-faint">{{ index }}</span>
+          <span class="ml-2">/ {{ total }}</span>
         </span>
-        <span
-          class="inline-flex items-center gap-2 rounded-full border border-line bg-bg-elevated/70 px-2.5 py-1 font-mono text-mono-xs uppercase tracking-[0.18em] text-ink-muted"
-        >
+        <span class="inline-flex items-center gap-2 font-mono text-mono-xs uppercase text-ink-muted">
           <StatusDot
             :color="statusColor"
             :pulse="project.status === 'active'"
@@ -84,52 +56,77 @@ const isInternal = computed(() => props.project.href.startsWith("/"));
         </span>
       </div>
 
+      <!-- Title block -->
       <h3
-        class="relative z-10 mt-10 font-display text-[clamp(1.85rem,3.2vw,2.65rem)] font-semibold leading-[1.05] tracking-tight text-ink-primary"
+        class="mt-12 max-w-[18ch] font-display font-semibold leading-[1] tracking-[-0.04em] text-ink-primary"
+        :class="
+          tall
+            ? 'text-[clamp(2rem,3.4vw,2.75rem)]'
+            : 'text-[clamp(1.75rem,2.6vw,2.25rem)]'
+        "
       >
         {{ project.title }}
       </h3>
+
+      <!-- One-liner -->
       <p
-        class="relative z-10 mt-3 max-w-[40ch] text-balance text-[15px] font-medium text-ink-primary/85"
+        class="mt-5 max-w-[42ch] text-balance text-body-md text-ink-primary/85"
       >
         {{ project.oneLiner }}
       </p>
       <p
         v-if="project.description"
-        class="relative z-10 mt-3 max-w-[55ch] text-[14.5px] leading-relaxed text-ink-muted"
+        class="mt-3 max-w-[48ch] text-body-sm text-ink-muted"
       >
         {{ project.description }}
       </p>
 
+      <!-- Optional metric -->
       <div
         v-if="project.metric"
-        class="relative z-10 mt-6 inline-flex items-baseline gap-3 self-start rounded-2xl border border-line bg-bg-elevated/50 px-4 py-2.5"
+        class="mt-6 inline-flex items-baseline gap-3 border-t border-line pt-5 self-start"
       >
-        <span
-          class="font-display text-[clamp(1.1rem,1.6vw,1.4rem)] font-semibold tracking-tight text-ink-primary"
-        >
+        <span class="font-display text-[clamp(1.25rem,1.6vw,1.6rem)] font-semibold tracking-[-0.025em] text-ink-primary">
           {{ project.metric.value }}
         </span>
-        <span
-          class="font-mono text-mono-xs uppercase tracking-[0.16em] text-ink-subtle"
-        >
+        <span class="font-mono text-mono-xs uppercase text-ink-subtle">
           {{ project.metric.label }}
         </span>
       </div>
 
       <div class="flex-1" />
 
+      <!-- Footer: stack + role + CTA arrow -->
       <div
-        class="relative z-10 mt-8 flex flex-wrap items-center justify-between gap-3 border-t border-line/70 pt-5"
+        class="mt-10 flex flex-wrap items-end justify-between gap-4 border-t border-line pt-5"
       >
-        <div class="flex flex-wrap gap-1.5">
-          <MonoChip v-for="s in project.stack" :key="s">{{ s }}</MonoChip>
+        <div class="flex flex-col gap-3">
+          <span class="font-mono text-mono-xs uppercase text-ink-subtle">
+            {{ project.role }}
+          </span>
+          <div class="flex flex-wrap gap-1.5">
+            <MonoChip v-for="s in project.stack.slice(0, 5)" :key="s">{{ s }}</MonoChip>
+          </div>
         </div>
+
         <span
-          v-if="project.caseStudy"
-          class="inline-flex items-center gap-1.5 rounded-full border border-accent-warm/30 bg-accent-warm/10 px-2.5 py-1 font-mono text-mono-xs uppercase tracking-[0.16em] text-accent-warm/90"
+          class="relative z-10 inline-flex items-center gap-2 font-mono text-mono-xs uppercase text-ink-muted transition-colors duration-500 group-hover:text-accent-warm"
         >
-          Case study
+          <span v-if="project.caseStudy">Case study</span>
+          <span v-else>Repository</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.25"
+            stroke-linecap="square"
+            stroke-linejoin="miter"
+            class="h-3 w-3 transition-transform duration-500 ease-haptic group-hover:translate-x-1 group-hover:-translate-y-px"
+          >
+            <path d="M5 12h14" />
+            <path d="m13 6 6 6-6 6" />
+          </svg>
         </span>
       </div>
     </div>

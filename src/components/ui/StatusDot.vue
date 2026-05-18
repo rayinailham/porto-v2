@@ -14,20 +14,20 @@ const props = withDefaults(defineProps<Props>(), {
 const colorVar: Record<NonNullable<Props["color"]>, string> = {
   success: "var(--accent-success)",
   warm: "var(--accent-warm)",
-  cool: "var(--accent-primary)",
+  cool: "var(--ink-primary)",
   muted: "var(--ink-muted)",
 };
 </script>
 
 <template>
   <span
-    class="relative inline-flex h-2 w-2 shrink-0 rounded-full"
+    class="relative inline-flex h-1.5 w-1.5 shrink-0 rounded-full"
     :style="{ backgroundColor: colorVar[props.color] }"
     aria-hidden="true"
   >
     <span
       v-if="props.pulse"
-      class="absolute inset-[-4px] rounded-full opacity-25"
+      class="absolute inset-[-3px] rounded-full opacity-20"
       :style="{
         backgroundColor: colorVar[props.color],
         animation: 'pulse-soft 2.4s ease-in-out infinite',

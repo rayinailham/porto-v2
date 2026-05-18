@@ -1,83 +1,90 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import StatusDot from "@/components/ui/StatusDot.vue";
 import MonoChip from "@/components/ui/MonoChip.vue";
+import { useCounter } from "@/composables/useCounter";
+
+const root = ref<HTMLElement | null>(null);
+useCounter(root);
 </script>
 
 <template>
   <section
-    class="relative isolate overflow-hidden py-section-sm"
+    ref="root"
+    class="relative border-b border-line py-section-sm"
     data-reveal-group
     aria-label="Currently building"
   >
-    <div class="shell">
+    <div class="shell-wide">
+      <!-- Section marker -->
       <div
-        class="reveal-init group relative overflow-hidden rounded-[28px] border border-line bg-bg-elevated/60 p-1.5 backdrop-blur-md"
-        style="box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 30px 80px -50px rgba(0, 0, 0, 0.9);"
+        class="reveal-init flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle"
       >
-        <!-- Inner core (Double-Bezel inner) -->
-        <div
-          class="relative grid grid-cols-1 items-center gap-8 overflow-hidden rounded-[22px] bg-bg-base/85 px-7 py-7 md:grid-cols-12 md:gap-6 md:px-9 md:py-8"
-        >
-          <!-- subtle cool wash -->
-          <div
-            class="pointer-events-none absolute inset-0 opacity-60"
-            style="
-              background:
-                radial-gradient(120% 80% at 0% 50%, rgb(0 102 255 / 0.06) 0%, transparent 60%);
-            "
-            aria-hidden="true"
-          />
+        <span class="inline-flex items-center gap-3">
+          <span class="text-ink-faint">01</span>
+          <span>Live signal</span>
+        </span>
+        <span class="inline-flex items-center gap-2">
+          <StatusDot color="warm" />
+          <span class="text-ink-muted">In active build</span>
+        </span>
+      </div>
 
-          <div class="md:col-span-7">
-            <div class="flex items-center gap-3">
-              <StatusDot color="warm" />
-              <span
-                class="font-mono text-mono-xs uppercase tracking-[0.22em] text-ink-muted"
-              >
-                Currently · live signal
-              </span>
-            </div>
-            <h2 class="mt-3 font-display text-heading-lg text-ink-primary">
-              Leading <span class="text-accent-primary">WIS-FutureGuide</span> —
-              a 9-service Go microservice ecosystem for career guidance, in active
-              development.
-            </h2>
-            <div class="mt-4 flex flex-wrap items-center gap-2">
-              <MonoChip variant="cool">Go</MonoChip>
-              <MonoChip>Clean Arch</MonoChip>
-              <MonoChip>RabbitMQ</MonoChip>
-              <MonoChip>Postgres</MonoChip>
-              <MonoChip variant="warm">9 services</MonoChip>
-            </div>
-          </div>
-
-          <!-- Live commit-like metrics -->
-          <dl
-            class="md:col-span-5 grid grid-cols-3 gap-3 self-stretch"
-            aria-label="Current build metrics"
+      <div class="grid grid-cols-12 gap-x-6 gap-y-10 pt-12">
+        <!-- Lead text -->
+        <div class="reveal-init col-span-12 lg:col-span-7">
+          <h2
+            class="max-w-[20ch] font-display text-display-md text-ink-primary"
           >
-            <div
-              v-for="m in [
-                { v: '9', l: 'cooperating services' },
-                { v: '2 lanes', l: 'sync + async' },
-                { v: 'May 26', l: 'last push' },
-              ]"
-              :key="m.l"
-              class="rounded-2xl border border-line bg-bg-elevated/60 px-4 py-3"
-            >
-              <dt
-                class="font-mono text-mono-xs uppercase tracking-[0.16em] text-ink-subtle"
-              >
-                {{ m.l }}
-              </dt>
-              <dd
-                class="mt-1 font-display text-[clamp(1.25rem,1.6vw,1.6rem)] font-semibold tracking-tight text-ink-primary"
-              >
-                {{ m.v }}
-              </dd>
-            </div>
-          </dl>
+            Leading <span class="text-accent-warm">WIS-FutureGuide</span>, a
+            nine-service Go ecosystem for career guidance — in active development.
+          </h2>
+          <div class="mt-8 flex flex-wrap gap-1.5">
+            <MonoChip variant="warm">Go 1.24</MonoChip>
+            <MonoChip>Clean Arch</MonoChip>
+            <MonoChip>RabbitMQ</MonoChip>
+            <MonoChip>Postgres 16</MonoChip>
+            <MonoChip>9 services</MonoChip>
+          </div>
         </div>
+
+        <!-- Metric column — large numerals, hairline divided -->
+        <dl
+          class="col-span-12 grid grid-cols-3 lg:col-span-5"
+          aria-label="Current build metrics"
+        >
+          <div class="reveal-init border-l border-line px-6 first:border-l-0 first:pl-0">
+            <dt class="font-mono text-mono-xs uppercase text-ink-subtle">
+              Services
+            </dt>
+            <dd
+              class="mt-4 font-display text-[clamp(2rem,3.5vw,3.25rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary"
+              data-counter="9"
+            >0</dd>
+          </div>
+          <div class="reveal-init border-l border-line px-6">
+            <dt class="font-mono text-mono-xs uppercase text-ink-subtle">
+              Lanes
+            </dt>
+            <dd
+              class="mt-4 font-display text-[clamp(2rem,3.5vw,3.25rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary"
+              data-counter="2"
+            >0</dd>
+            <span class="mt-2 inline-block font-mono text-[10px] uppercase tracking-[0.18em] text-ink-faint">
+              sync + async
+            </span>
+          </div>
+          <div class="reveal-init border-l border-line px-6">
+            <dt class="font-mono text-mono-xs uppercase text-ink-subtle">
+              Last push
+            </dt>
+            <dd
+              class="mt-4 font-display text-[clamp(1.25rem,1.8vw,1.6rem)] font-semibold leading-tight tracking-[-0.025em] text-ink-primary"
+            >
+              May 26<span class="text-ink-faint">/26</span>
+            </dd>
+          </div>
+        </dl>
       </div>
     </div>
   </section>

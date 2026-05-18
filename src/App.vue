@@ -2,11 +2,13 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { useSmoothScroll } from "@/composables/useSmoothScroll";
+import { useScrollProgress } from "@/composables/useScrollProgress";
 import AppHeader from "@/components/layout/AppHeader.vue";
 import AppFooter from "@/components/layout/AppFooter.vue";
 import KonamiOverlay from "@/components/layout/KonamiOverlay.vue";
 
 useSmoothScroll();
+useScrollProgress();
 
 const route = useRoute();
 const isQuiet = computed(() => route.path === "/sui");

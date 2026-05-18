@@ -5,40 +5,45 @@ export default {
     extend: {
       colors: {
         bg: {
-          base: "#0a0a0b",
-          elevated: "#111114",
-          raised: "#16161a",
+          base: "#0a0a0a",
+          elevated: "#121214",
+          raised: "#17171a",
         },
         ink: {
-          primary: "#f5f5f7",
-          muted: "#8a8a93",
-          subtle: "#5a5a63",
+          primary: "#fafafa",
+          muted: "#9a9aa3",
+          subtle: "#5d5d66",
+          faint: "#3a3a40",
         },
         line: {
-          DEFAULT: "#1f1f23",
-          strong: "#2a2a30",
+          DEFAULT: "#212126",
+          strong: "#33333a",
+          faint: "#181820",
         },
         accent: {
-          primary: "#0066ff",
-          warm: "#ff6b35",
-          success: "#10b981",
+          warm: "#ff5a1f",
+          success: "#22c55e",
         },
       },
       fontFamily: {
         display: [
-          "Plus Jakarta Sans Variable",
+          "Inter Variable",
+          "Inter",
           "ui-sans-serif",
           "system-ui",
+          "Helvetica",
           "sans-serif",
         ],
         body: [
           "Inter Variable",
+          "Inter",
           "ui-sans-serif",
           "system-ui",
           "sans-serif",
         ],
         mono: [
           "JetBrains Mono Variable",
+          "JetBrains Mono",
           "ui-monospace",
           "SFMono-Regular",
           "Menlo",
@@ -46,53 +51,61 @@ export default {
         ],
       },
       fontSize: {
-        // Fluid clamp scale — premium editorial
+        // Swiss editorial scale — disciplined, tight
         "display-xl": [
-          "clamp(3.5rem, 8vw + 1rem, 6.5rem)",
-          { lineHeight: "0.95", letterSpacing: "-0.04em", fontWeight: "700" },
+          "clamp(3rem, 6.5vw + 1rem, 6rem)",
+          { lineHeight: "0.92", letterSpacing: "-0.045em", fontWeight: "600" },
         ],
         "display-lg": [
-          "clamp(2.75rem, 5vw + 1rem, 4.5rem)",
-          { lineHeight: "1", letterSpacing: "-0.035em", fontWeight: "700" },
+          "clamp(2.25rem, 4vw + 1rem, 3.75rem)",
+          { lineHeight: "0.96", letterSpacing: "-0.04em", fontWeight: "600" },
         ],
         "display-md": [
-          "clamp(2rem, 3vw + 1rem, 3rem)",
-          { lineHeight: "1.05", letterSpacing: "-0.025em", fontWeight: "600" },
+          "clamp(1.75rem, 2.5vw + 1rem, 2.5rem)",
+          { lineHeight: "1", letterSpacing: "-0.032em", fontWeight: "600" },
         ],
         "heading-lg": [
-          "clamp(1.5rem, 1.5vw + 1rem, 2rem)",
-          { lineHeight: "1.15", letterSpacing: "-0.02em", fontWeight: "600" },
+          "clamp(1.25rem, 1.2vw + 0.8rem, 1.625rem)",
+          { lineHeight: "1.15", letterSpacing: "-0.022em", fontWeight: "500" },
         ],
         "heading-md": [
-          "1.5rem",
-          { lineHeight: "1.25", letterSpacing: "-0.015em", fontWeight: "600" },
+          "1.125rem",
+          { lineHeight: "1.3", letterSpacing: "-0.015em", fontWeight: "500" },
         ],
         "body-lg": [
-          "1.125rem",
-          { lineHeight: "1.6", letterSpacing: "-0.005em" },
+          "1.0625rem",
+          { lineHeight: "1.55", letterSpacing: "-0.005em" },
         ],
-        "body-md": ["1rem", { lineHeight: "1.6" }],
+        "body-md": ["0.9375rem", { lineHeight: "1.65" }],
+        "body-sm": ["0.8125rem", { lineHeight: "1.6" }],
         "mono-sm": [
-          "0.8125rem",
-          { lineHeight: "1.5", letterSpacing: "0.01em" },
+          "0.75rem",
+          { lineHeight: "1.5", letterSpacing: "0.04em" },
         ],
         "mono-xs": [
           "0.6875rem",
-          { lineHeight: "1.4", letterSpacing: "0.12em" },
+          { lineHeight: "1.4", letterSpacing: "0.2em" },
+        ],
+        "mono-2xs": [
+          "0.625rem",
+          { lineHeight: "1.4", letterSpacing: "0.24em" },
         ],
       },
       spacing: {
-        section: "clamp(5rem, 10vw, 10rem)",
-        "section-sm": "clamp(3rem, 6vw, 5rem)",
+        section: "clamp(6.5rem, 13vw, 13rem)",
+        "section-sm": "clamp(4rem, 8vw, 7rem)",
+        "section-xs": "clamp(2.5rem, 5vw, 4rem)",
+        gutter: "clamp(1.5rem, 3vw, 3rem)",
       },
       maxWidth: {
-        shell: "1320px",
-        prose: "65ch",
+        shell: "1280px",
+        prose: "60ch",
+        narrow: "44ch",
       },
       borderRadius: {
-        "2.5xl": "1.25rem",
-        "3xl": "1.5rem",
-        "4xl": "2rem",
+        none: "0",
+        sm: "2px",
+        DEFAULT: "3px",
       },
       transitionTimingFunction: {
         out: "cubic-bezier(0.16, 1, 0.3, 1)",
@@ -102,34 +115,31 @@ export default {
       transitionDuration: {
         700: "700ms",
         900: "900ms",
+        1200: "1200ms",
       },
       keyframes: {
         "fade-up": {
-          "0%": { opacity: "0", transform: "translateY(24px)" },
+          "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
         },
         "pulse-soft": {
-          "0%, 100%": { opacity: "0.9", transform: "scale(1)" },
-          "50%": { opacity: "0.55", transform: "scale(0.85)" },
+          "0%, 100%": { opacity: "0.85", transform: "scale(1)" },
+          "50%": { opacity: "0.4", transform: "scale(0.7)" },
         },
         marquee: {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(-50%)" },
         },
-        "shimmer": {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
+        caret: {
+          "0%, 50%": { opacity: "1" },
+          "51%, 100%": { opacity: "0" },
         },
       },
       animation: {
-        "fade-up": "fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both",
+        "fade-up": "fade-up 0.7s cubic-bezier(0.16, 1, 0.3, 1) both",
         "pulse-soft": "pulse-soft 2.4s ease-in-out infinite",
-        marquee: "marquee 38s linear infinite",
-        shimmer: "shimmer 2.4s linear infinite",
-      },
-      backgroundImage: {
-        "noise-grain":
-          "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E\")",
+        marquee: "marquee 64s linear infinite",
+        caret: "caret 1.1s steps(1) infinite",
       },
     },
   },

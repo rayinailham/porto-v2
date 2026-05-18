@@ -8,10 +8,9 @@ withDefaults(defineProps<Props>(), { variant: "default" });
 
 <template>
   <span
-    class="chip-mono transition-colors duration-300 ease-haptic"
+    class="chip-mono transition-colors duration-300"
     :class="{
-      'border-accent-warm/30 text-accent-warm/90': variant === 'warm',
-      'border-accent-primary/30 text-accent-primary/90': variant === 'cool',
+      'border-accent-warm/40 text-accent-warm': variant === 'warm',
     }"
   >
     <slot />

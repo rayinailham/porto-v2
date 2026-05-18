@@ -1,7 +1,7 @@
 /**
- * Scroll-reveal helper using GSAP + IntersectionObserver-friendly ScrollTrigger.
- * - Honors prefers-reduced-motion (skips animation, just sets visible).
- * - Targets `.reveal-init` items inside the provided root.
+ * Swiss editorial scroll-reveal — minimal, crisp, no blur.
+ * - Honors prefers-reduced-motion
+ * - Targets `.reveal-init` for fade+lift, `.type-reveal` for clip-path sweep
  */
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -17,9 +17,9 @@ interface Options {
 export function useReveal(root: Ref<HTMLElement | null>, opts: Options = {}) {
   const {
     selector = ".reveal-init",
-    stagger = 0.08,
-    start = "top 85%",
-    duration = 0.9,
+    stagger = 0.06,
+    start = "top 88%",
+    duration = 0.8,
   } = opts;
 
   let triggers: ScrollTrigger[] = [];
@@ -27,19 +27,28 @@ export function useReveal(root: Ref<HTMLElement | null>, opts: Options = {}) {
   onMounted(() => {
     if (!root.value) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Type-reveal — clip-path sweep on big headlines
+    const typeItems = Array.from(
+      root.value.querySelectorAll<HTMLElement>(".type-reveal"),
+    );
+
+    // Standard reveal
     const items = Array.from(root.value.querySelectorAll<HTMLElement>(selector));
-    if (items.length === 0) return;
+    if (items.length === 0 && typeItems.length === 0) return;
 
     if (reduced) {
       items.forEach((el) => {
         el.style.opacity = "1";
         el.style.transform = "none";
-        el.style.filter = "none";
+      });
+      typeItems.forEach((el) => {
+        el.style.clipPath = "none";
       });
       return;
     }
 
-    // Group items by closest section so stagger feels natural per section.
+    // Group standard reveals by [data-reveal-group]
     const groups = new Map<HTMLElement, HTMLElement[]>();
     items.forEach((el) => {
       const parent =
@@ -51,17 +60,37 @@ export function useReveal(root: Ref<HTMLElement | null>, opts: Options = {}) {
     groups.forEach((groupItems, parent) => {
       const tween = gsap.fromTo(
         groupItems,
-        { y: 28, opacity: 0, filter: "blur(6px)" },
+        { y: 14, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          filter: "blur(0px)",
           duration,
           ease: "power3.out",
           stagger,
           scrollTrigger: {
             trigger: parent,
             start,
+            toggleActions: "play none none none",
+            once: true,
+          },
+        },
+      );
+      const t = tween.scrollTrigger;
+      if (t) triggers.push(t);
+    });
+
+    // Type-reveal — left-to-right clip sweep, no fade (keeps contrast crisp)
+    typeItems.forEach((el) => {
+      const tween = gsap.fromTo(
+        el,
+        { clipPath: "inset(0 100% 0 0)" },
+        {
+          clipPath: "inset(0 0% 0 0)",
+          duration: 1.05,
+          ease: "power4.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 88%",
             toggleActions: "play none none none",
             once: true,
           },

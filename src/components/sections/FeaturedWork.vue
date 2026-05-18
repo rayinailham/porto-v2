@@ -1,12 +1,13 @@
 <script setup lang="ts">
 import { featured } from "@/data/portfolio";
-import EyebrowTag from "@/components/ui/EyebrowTag.vue";
 import MonoChip from "@/components/ui/MonoChip.vue";
 import StatusDot from "@/components/ui/StatusDot.vue";
 import FeaturedCard from "@/components/sections/FeaturedCard.vue";
 
 const large = featured.filter((f) => f.size !== "sm");
 const thumbs = featured.filter((f) => f.size === "sm");
+
+const totalLarge = String(large.length).padStart(2, "0");
 
 const statusLabel = (s: "active" | "shipped" | "ongoing") =>
   s === "active" ? "Active build" : s === "shipped" ? "Shipped" : "Ongoing";
@@ -18,130 +19,160 @@ const statusColor = (s: "active" | "shipped" | "ongoing") =>
 <template>
   <section
     id="work"
-    class="relative py-section"
+    class="relative border-b border-line py-section"
     data-reveal-group
     aria-labelledby="work-heading"
   >
-    <div class="shell">
+    <div class="shell-wide">
+      <!-- Section marker -->
       <div
-        class="reveal-init flex flex-col items-start justify-between gap-6 md:flex-row md:items-end"
+        class="reveal-init flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle"
       >
-        <div class="max-w-[40ch]">
-          <EyebrowTag label="Featured · 06 · 2026" />
-          <h2
-            id="work-heading"
-            class="mt-6 text-balance font-display text-display-md text-ink-primary"
-          >
-            Selected work, with the receipts.
-          </h2>
-        </div>
-        <p class="max-w-md text-body-md text-ink-muted">
+        <span class="inline-flex items-center gap-3">
+          <span class="text-ink-faint">03</span>
+          <span>Selected work · 2024–2026</span>
+        </span>
+        <span class="hidden sm:inline">{{ totalLarge }} primary, {{ thumbs.length }} secondary</span>
+      </div>
+
+      <!-- Heading row -->
+      <div class="grid grid-cols-12 gap-x-6 gap-y-8 pt-12">
+        <h2
+          id="work-heading"
+          class="reveal-init col-span-12 max-w-[22ch] font-display text-display-md text-ink-primary lg:col-span-8"
+        >
+          Selected work, with the receipts.
+        </h2>
+        <p class="reveal-init col-span-12 max-w-[40ch] text-body-md text-ink-muted lg:col-span-4 lg:text-right">
           A subset of what's public — chosen for impact, architectural depth,
-          and the parts I'd happily defend in a code review.
+          and the parts I'd happily defend in code review.
         </p>
       </div>
 
-      <!-- Bento: 8/4 grid, FutureGuide tall on right -->
+      <!-- Featured grid: hairline-divided 2-col layout -->
       <div
-        class="reveal-init mt-12 grid grid-cols-1 gap-4 md:mt-16 md:grid-cols-12 md:gap-5"
+        class="reveal-init mt-section-sm grid grid-cols-1 border-t border-line lg:grid-cols-12"
       >
         <FeaturedCard
           :project="large[0]"
-          class="md:col-span-8"
+          :index="'01'"
+          :total="totalLarge"
+          class="lg:col-span-7 border-b border-line"
           :status-label="statusLabel(large[0].status)"
           :status-color="statusColor(large[0].status)"
-          :emphasis="large[0].emphasis ?? 'neutral'"
         />
 
         <FeaturedCard
           :project="large[1]"
-          class="md:col-span-4 md:row-span-2"
+          :index="'02'"
+          :total="totalLarge"
           tall
+          class="lg:col-span-5 lg:row-span-2 border-b border-line lg:border-b-0"
           :status-label="statusLabel(large[1].status)"
           :status-color="statusColor(large[1].status)"
-          :emphasis="large[1].emphasis ?? 'neutral'"
         />
 
         <FeaturedCard
           :project="large[2]"
-          class="md:col-span-8"
+          :index="'03'"
+          :total="totalLarge"
+          class="lg:col-span-7 border-b border-line"
           :status-label="statusLabel(large[2].status)"
           :status-color="statusColor(large[2].status)"
-          :emphasis="large[2].emphasis ?? 'neutral'"
         />
       </div>
 
-      <!-- Thumbnails: 3 small -->
-      <ul
-        class="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-5"
-        data-reveal-group
-      >
-        <li
-          v-for="t in thumbs"
-          :key="t.slug"
-          class="reveal-init group relative isolate overflow-hidden rounded-[20px] border border-line bg-bg-elevated/40 p-6 transition-all duration-700 ease-haptic hover:-translate-y-0.5 hover:border-line-strong hover:bg-bg-elevated/80"
-          style="box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);"
+      <!-- Thumbnails: secondary works -->
+      <div class="mt-section-sm" data-reveal-group>
+        <div
+          class="reveal-init flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle"
         >
+          <span class="inline-flex items-center gap-3">
+            <span class="text-ink-faint">03b</span>
+            <span>Secondary index</span>
+          </span>
+          <span class="text-ink-muted">{{ thumbs.length }} entries</span>
+        </div>
+
+        <ul class="grid grid-cols-1 divide-y divide-line border-b border-line md:grid-cols-3 md:divide-x md:divide-y-0">
+          <li
+            v-for="(t, i) in thumbs"
+            :key="t.slug"
+            class="reveal-init group relative flex flex-col py-8 md:px-6 lg:px-8 lg:py-10 first:md:pl-0 last:md:pr-0"
+          >
+            <a
+              :href="t.href"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="absolute inset-0 z-10"
+              :aria-label="`Open ${t.title} on GitHub`"
+            />
+            <div class="flex items-baseline justify-between font-mono text-mono-xs uppercase text-ink-subtle">
+              <span>
+                <span class="text-ink-faint">{{ String(i + 1).padStart(2, '0') }}</span>
+                <span class="ml-2">/ {{ String(thumbs.length).padStart(2, '0') }}</span>
+              </span>
+              <StatusDot :color="statusColor(t.status)" />
+            </div>
+            <h3
+              class="mt-8 font-display text-[clamp(1.15rem,1.5vw,1.35rem)] font-semibold tracking-[-0.025em] text-ink-primary"
+            >
+              {{ t.title }}
+            </h3>
+            <p class="mt-3 max-w-[36ch] text-body-sm text-ink-muted">{{ t.oneLiner }}</p>
+            <div class="mt-6 flex flex-wrap gap-1.5">
+              <MonoChip v-for="s in t.stack.slice(0, 3)" :key="s">{{ s }}</MonoChip>
+            </div>
+            <div class="mt-auto pt-8">
+              <span class="inline-flex items-center gap-2 font-mono text-mono-xs uppercase text-ink-muted transition-colors duration-500 group-hover:text-accent-warm">
+                <span class="link-underline">Repository</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.25"
+                  stroke-linecap="square"
+                  stroke-linejoin="miter"
+                  class="h-3 w-3 transition-transform duration-500 ease-haptic group-hover:translate-x-1"
+                >
+                  <path d="M5 12h14" />
+                  <path d="m13 6 6 6-6 6" />
+                </svg>
+              </span>
+            </div>
+          </li>
+        </ul>
+
+        <div
+          class="reveal-init mt-12 flex flex-col items-baseline justify-between gap-4 font-mono text-mono-xs uppercase text-ink-subtle md:flex-row"
+        >
+          <span>
+            <span class="text-ink-faint">+18 / 24</span>
+            <span class="ml-3 text-ink-muted">prodiplan, micro-auth, vocal-trainer, …</span>
+          </span>
           <a
-            :href="t.href"
+            href="https://github.com/rayinailham?tab=repositories"
             target="_blank"
             rel="noopener noreferrer"
-            class="absolute inset-0 z-10"
-            :aria-label="`Open ${t.title} on GitHub`"
-          />
-          <div class="flex items-center justify-between">
-            <span
-              class="font-mono text-mono-xs uppercase tracking-[0.18em] text-ink-subtle"
+            class="group inline-flex items-center gap-2 text-ink-primary"
+          >
+            <span class="link-underline">Browse all repositories</span>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.25"
+              stroke-linecap="square"
+              stroke-linejoin="miter"
+              class="h-3 w-3 transition-transform duration-500 ease-haptic group-hover:translate-x-1"
             >
-              {{ t.index }}
-            </span>
-            <StatusDot :color="statusColor(t.status)" />
-          </div>
-          <h3
-            class="mt-6 font-display text-[clamp(1.15rem,1.6vw,1.4rem)] font-semibold tracking-tight text-ink-primary"
-          >
-            {{ t.title }}
-          </h3>
-          <p class="mt-2 text-[14.5px] text-ink-muted">{{ t.oneLiner }}</p>
-          <div class="mt-5 flex flex-wrap gap-1.5">
-            <MonoChip v-for="s in t.stack.slice(0, 3)" :key="s">{{ s }}</MonoChip>
-          </div>
-        </li>
-      </ul>
-
-      <div
-        class="reveal-init mt-12 flex flex-col items-start justify-between gap-4 border-t border-line/70 pt-6 md:flex-row md:items-center"
-      >
-        <p
-          class="font-mono text-mono-xs uppercase tracking-[0.18em] text-ink-subtle"
-        >
-          + 18 more on github · prodiplan, micro-auth, vocal-trainer, …
-        </p>
-        <a
-          href="https://github.com/rayinailham?tab=repositories"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group inline-flex items-center gap-2 text-[14.5px] font-medium tracking-tight text-ink-primary"
-        >
-          <span
-            class="border-b border-line transition-colors duration-500 group-hover:border-ink-primary"
-          >
-            Browse all repositories
-          </span>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="h-3.5 w-3.5 transition-all duration-500 ease-haptic group-hover:translate-x-0.5 group-hover:-translate-y-px"
-          >
-            <path d="M7 17 17 7" />
-            <path d="M8 7h9v9" />
-          </svg>
-        </a>
+              <path d="M5 12h14" />
+              <path d="m13 6 6 6-6 6" />
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   </section>

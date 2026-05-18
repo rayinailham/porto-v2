@@ -9,7 +9,7 @@ const route = useRoute();
 const onScroll = () => {
   if (raf !== null) return;
   raf = requestAnimationFrame(() => {
-    scrolled.value = window.scrollY > 24;
+    scrolled.value = window.scrollY > 16;
     raf = null;
   });
 };
@@ -22,106 +22,93 @@ onBeforeUnmount(() => {
 
 interface NavItem {
   label: string;
-  to?: string;
-  hash?: string;
+  to: string;
+  num: string;
 }
 
-const isHome = computed(() => route.path === "/");
+const navItems = computed<NavItem[]>(() => [
+  { label: "Index", to: "/", num: "00" },
+  { label: "Work", to: "/work", num: "01" },
+  { label: "About", to: "/about", num: "02" },
+  { label: "Contact", to: "/contact", num: "03" },
+]);
 
-const navItems = computed<NavItem[]>(() => {
-  if (isHome.value) {
-    return [
-      { label: "Work", to: "/work" },
-      { label: "About", to: "/about" },
-      { label: "Contact", to: "/contact" },
-    ];
-  }
-  return [
-    { label: "Home", to: "/" },
-    { label: "Work", to: "/work" },
-    { label: "About", to: "/about" },
-    { label: "Contact", to: "/contact" },
-  ];
-});
+const isActive = (to: string) => {
+  if (to === "/") return route.path === "/";
+  return route.path.startsWith(to);
+};
 </script>
 
 <template>
   <header
-    class="pointer-events-none fixed inset-x-0 top-0 z-50 flex justify-center px-4 pt-5 transition-all duration-700 ease-haptic"
-    :class="scrolled ? 'pt-3' : 'pt-5'"
+    class="fixed inset-x-0 top-0 z-50 transition-colors duration-700 ease-haptic"
+    :class="
+      scrolled
+        ? 'bg-bg-base/80 backdrop-blur-md border-b border-line'
+        : 'bg-transparent border-b border-transparent'
+    "
   >
-    <nav
-      class="pointer-events-auto group flex items-center gap-2 rounded-full border border-line/80 bg-bg-base/60 p-1 pl-4 backdrop-blur-2xl transition-all duration-700 ease-haptic"
-      :class="
-        scrolled
-          ? 'shadow-[0_24px_60px_-30px_rgba(0,0,0,0.8)] bg-bg-base/85'
-          : 'bg-bg-base/45'
-      "
-      style="box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05)"
-    >
+    <!-- Scroll progress hairline -->
+    <span
+      class="pointer-events-none absolute inset-x-0 bottom-0 h-px origin-left bg-accent-warm"
+      style="transform: scaleX(var(--scroll-progress, 0))"
+      aria-hidden="true"
+    />
+
+    <div class="shell-wide flex h-14 items-center justify-between gap-8">
       <router-link
         to="/"
-        class="flex items-center gap-2 pr-2 font-display text-[14px] font-semibold tracking-tight text-ink-primary"
+        class="group flex items-center gap-3 font-mono text-mono-xs uppercase text-ink-primary"
       >
-        <span
-          class="relative grid h-6 w-6 place-items-center rounded-full bg-bg-elevated text-[10px] font-bold"
-        >
-          R
-          <span
-            class="absolute right-0 top-0 h-1.5 w-1.5 -translate-y-0.5 translate-x-0.5 rounded-full bg-accent-warm"
-            aria-hidden="true"
-          />
+        <span class="font-display text-[15px] font-semibold tracking-[-0.025em]">
+          Rayina Ilham
         </span>
-        <span class="hidden sm:inline">Rayina Ilham</span>
+        <span class="hidden text-ink-subtle md:inline">— portfolio / v2</span>
       </router-link>
 
-      <div
-        class="hidden items-center gap-1 border-l border-line pl-2 md:flex"
+      <nav
+        class="hidden items-center gap-8 md:flex"
         aria-label="Primary"
       >
-        <template v-for="item in navItems" :key="item.label">
-          <router-link
-            v-if="item.to"
-            :to="item.to"
-            class="rounded-full px-3 py-1.5 font-mono text-mono-xs uppercase tracking-[0.16em] transition-colors duration-300 hover:bg-bg-elevated hover:text-ink-primary"
-            active-class="bg-bg-elevated text-ink-primary"
-            :class="route.path !== item.to ? 'text-ink-muted' : ''"
-          >
+        <router-link
+          v-for="item in navItems"
+          :key="item.label"
+          :to="item.to"
+          class="group inline-flex items-baseline gap-1.5 font-mono text-mono-xs uppercase transition-colors duration-300"
+          :class="isActive(item.to) ? 'text-ink-primary' : 'text-ink-muted hover:text-ink-primary'"
+        >
+          <span class="text-ink-faint">{{ item.num }}</span>
+          <span class="relative">
             {{ item.label }}
-          </router-link>
-          <a
-            v-else
-            :href="item.hash"
-            class="rounded-full px-3 py-1.5 font-mono text-mono-xs uppercase tracking-[0.16em] text-ink-muted transition-colors duration-300 hover:bg-bg-elevated hover:text-ink-primary"
-          >
-            {{ item.label }}
-          </a>
-        </template>
-      </div>
+            <span
+              v-if="isActive(item.to)"
+              class="absolute -bottom-[7px] left-0 right-0 h-px bg-accent-warm"
+              aria-hidden="true"
+            />
+          </span>
+        </router-link>
+      </nav>
 
       <a
         href="mailto:rayinailham9@gmail.com"
-        class="ml-1 inline-flex h-9 items-center gap-2 rounded-full bg-ink-primary pl-3 pr-1 text-[12.5px] font-medium tracking-tight text-bg-base transition-all duration-500 ease-haptic hover:bg-white active:scale-[0.98]"
+        class="group inline-flex items-center gap-2 font-mono text-mono-xs uppercase text-ink-primary"
       >
-        <span>Get in touch</span>
-        <span
-          class="grid h-7 w-7 place-items-center rounded-full bg-bg-base/10 transition-all duration-500 ease-haptic group-hover:translate-x-0.5"
+        <span class="hidden h-1.5 w-1.5 rounded-full bg-accent-success md:inline-block" aria-hidden="true" />
+        <span class="link-underline">Get in touch</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.25"
+          stroke-linecap="square"
+          stroke-linejoin="miter"
+          class="h-3 w-3 transition-transform duration-500 ease-haptic group-hover:translate-x-1"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="h-3.5 w-3.5"
-          >
-            <path d="M7 17 17 7" />
-            <path d="M8 7h9v9" />
-          </svg>
-        </span>
+          <path d="M5 12h14" />
+          <path d="m13 6 6 6-6 6" />
+        </svg>
       </a>
-    </nav>
+    </div>
   </header>
 </template>

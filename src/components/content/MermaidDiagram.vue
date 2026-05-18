@@ -24,29 +24,29 @@ const render = async () => {
       startOnLoad: false,
       theme: "base",
       themeVariables: {
-        // Match dark editorial palette
-        background: "#0a0a0b",
-        primaryColor: "#16161a",
-        primaryTextColor: "#f5f5f7",
-        primaryBorderColor: "#2a2a30",
-        secondaryColor: "#111114",
+        background: "#0a0a0a",
+        primaryColor: "#17171a",
+        primaryTextColor: "#fafafa",
+        primaryBorderColor: "#33333a",
+        secondaryColor: "#121214",
         secondaryTextColor: "#c8c8d0",
-        secondaryBorderColor: "#1f1f23",
-        tertiaryColor: "#0a0a0b",
-        tertiaryTextColor: "#8a8a93",
-        tertiaryBorderColor: "#1f1f23",
-        lineColor: "#5a5a63",
+        secondaryBorderColor: "#212126",
+        tertiaryColor: "#0a0a0a",
+        tertiaryTextColor: "#9a9aa3",
+        tertiaryBorderColor: "#212126",
+        lineColor: "#5d5d66",
         textColor: "#c8c8d0",
-        mainBkg: "#16161a",
-        nodeBorder: "#2a2a30",
-        clusterBkg: "#111114",
-        clusterBorder: "#1f1f23",
-        edgeLabelBackground: "#0a0a0b",
-        fontFamily: "JetBrains Mono Variable, JetBrains Mono, ui-monospace, monospace",
-        fontSize: "13px",
+        mainBkg: "#17171a",
+        nodeBorder: "#33333a",
+        clusterBkg: "#121214",
+        clusterBorder: "#212126",
+        edgeLabelBackground: "#0a0a0a",
+        fontFamily:
+          "JetBrains Mono Variable, JetBrains Mono, ui-monospace, monospace",
+        fontSize: "12.5px",
       },
       flowchart: {
-        curve: "basis",
+        curve: "linear",
         padding: 16,
         htmlLabels: true,
       },
@@ -64,14 +64,9 @@ watch(() => props.code, render);
 </script>
 
 <template>
-  <figure class="not-prose my-10">
-    <div
-      class="relative overflow-hidden rounded-[24px] border border-line bg-bg-elevated/30 p-1.5"
-      style="box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);"
-    >
-      <div
-        class="overflow-x-auto rounded-[18px] border border-line/70 bg-bg-base/80 p-6 md:p-8"
-      >
+  <figure class="not-prose">
+    <div class="border border-line bg-bg-base">
+      <div class="overflow-x-auto px-6 py-8 md:px-10 md:py-12">
         <div
           v-if="error"
           class="font-mono text-mono-sm text-accent-warm"
@@ -87,7 +82,7 @@ watch(() => props.code, render);
     </div>
     <figcaption
       v-if="caption"
-      class="mt-3 text-center font-mono text-mono-xs uppercase tracking-[0.18em] text-ink-subtle"
+      class="mt-3 font-mono text-mono-xs uppercase text-ink-subtle"
     >
       {{ caption }}
     </figcaption>
