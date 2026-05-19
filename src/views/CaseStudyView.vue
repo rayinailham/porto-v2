@@ -84,7 +84,7 @@ const nextTitle = computed(() =>
   <div v-if="study" ref="root" class="relative">
     <!-- Hero -->
     <section
-      class="relative border-b border-line pt-[clamp(8rem,18vh,12rem)] pb-section-sm"
+      class="relative border-b border-line pt-[clamp(5.5rem,14vh,12rem)] pb-section-sm"
       data-reveal-group
     >
       <div class="shell-wide">
@@ -141,25 +141,25 @@ const nextTitle = computed(() =>
 
         <!-- Meta dl -->
         <dl class="mt-section-sm grid grid-cols-2 border-y border-line md:grid-cols-4">
-          <div class="reveal-init px-5 py-6 md:border-l md:border-line first:md:border-l-0">
+          <div class="reveal-init px-4 py-6 sm:px-5 md:border-l md:border-line first:md:border-l-0">
             <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Role</dt>
             <dd class="mt-3 font-display text-[14.5px] font-medium tracking-[-0.012em] text-ink-primary">
               {{ study.role }}
             </dd>
           </div>
-          <div class="reveal-init px-5 py-6 md:border-l md:border-line">
+          <div class="reveal-init border-l border-line px-4 py-6 sm:px-5 md:border-line">
             <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Team</dt>
             <dd class="mt-3 font-display text-[14.5px] font-medium tracking-[-0.012em] text-ink-primary">
               {{ study.team }}
             </dd>
           </div>
-          <div class="reveal-init border-t border-line px-5 py-6 md:border-l md:border-t-0">
+          <div class="reveal-init border-t border-line px-4 py-6 sm:px-5 md:border-l md:border-t-0">
             <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Duration</dt>
             <dd class="mt-3 font-display text-[14.5px] font-medium tracking-[-0.012em] text-ink-primary">
               {{ study.duration }}
             </dd>
           </div>
-          <div class="reveal-init border-t border-line px-5 py-6 md:border-l md:border-t-0">
+          <div class="reveal-init border-l border-t border-line px-4 py-6 sm:px-5 md:border-t-0">
             <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Year</dt>
             <dd class="mt-3 font-display text-[14.5px] font-medium tracking-[-0.012em] text-ink-primary">
               {{ study.year }}
@@ -387,10 +387,11 @@ const nextTitle = computed(() =>
           <div
             v-for="(m, i) in study.outcome.metrics"
             :key="m.label"
-            class="reveal-init px-5 py-8 md:border-l md:border-line"
+            class="reveal-init px-4 py-8 sm:px-5"
             :class="[
-              i === 0 ? 'md:border-l-0' : '',
+              i % 2 === 1 ? 'border-l border-line' : '',
               i >= 2 ? 'border-t border-line md:border-t-0' : '',
+              i >= 1 ? 'md:border-l md:border-line' : '',
             ]"
           >
             <dt class="font-mono text-mono-xs uppercase text-ink-subtle">

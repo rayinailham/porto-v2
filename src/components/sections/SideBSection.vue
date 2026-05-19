@@ -214,7 +214,7 @@ const cards = [
 
         <!-- Audio loop card -->
         <aside
-          class="reveal-init col-span-12 flex flex-col border-l border-line pl-0 lg:col-span-5 lg:pl-12"
+          class="reveal-init col-span-12 flex flex-col pl-0 lg:col-span-5 lg:border-l lg:border-line lg:pl-12"
         >
           <div class="flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle">
             <span class="inline-flex items-center gap-3">

@@ -50,10 +50,10 @@ useCounter(root);
 
         <!-- Metric column — large numerals, hairline divided -->
         <dl
-          class="col-span-12 grid grid-cols-3 lg:col-span-5"
+          class="col-span-12 grid grid-cols-2 gap-y-6 sm:grid-cols-3 sm:gap-y-0 lg:col-span-5"
           aria-label="Current build metrics"
         >
-          <div class="reveal-init border-l border-line px-6 first:border-l-0 first:pl-0">
+          <div class="reveal-init px-4 sm:px-6 sm:[&:not(:first-child)]:border-l sm:border-line">
             <dt class="font-mono text-mono-xs uppercase text-ink-subtle">
               Services
             </dt>
@@ -62,7 +62,7 @@ useCounter(root);
               data-counter="9"
             >0</dd>
           </div>
-          <div class="reveal-init border-l border-line px-6">
+          <div class="reveal-init border-l border-line px-4 sm:px-6">
             <dt class="font-mono text-mono-xs uppercase text-ink-subtle">
               Lanes
             </dt>
@@ -75,7 +75,7 @@ useCounter(root);
               + <span class="italic-accent normal-case tracking-normal text-ink-muted">async</span>
             </span>
           </div>
-          <div class="reveal-init border-l border-line px-6">
+          <div class="reveal-init col-span-2 mt-2 border-t border-line px-4 pt-6 sm:col-span-1 sm:mt-0 sm:border-l sm:border-t-0 sm:pt-0 sm:px-6">
             <dt class="font-mono text-mono-xs uppercase text-ink-subtle">
               Last push
             </dt>

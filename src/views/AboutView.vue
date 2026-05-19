@@ -130,7 +130,7 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
   <div ref="root" class="relative">
     <!-- Hero -->
     <section
-      class="relative border-b border-line pt-[clamp(8rem,18vh,12rem)] pb-section-sm"
+      class="relative border-b border-line pt-[clamp(5.5rem,14vh,12rem)] pb-section-sm"
       data-reveal-group
     >
       <div class="shell-wide">
@@ -168,27 +168,27 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
             microservice topology, and practical AI all overlap.
           </p>
           <dl class="col-span-12 grid grid-cols-2 lg:col-span-5">
-            <div class="reveal-init border-l border-line px-5 py-3 first:border-l-0 first:pl-0">
+            <div class="reveal-init border-line px-4 py-3 sm:px-5 [&:nth-child(even)]:border-l">
               <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Public repos</dt>
               <dd
                 class="mt-3 font-display text-[clamp(1.75rem,2.4vw,2.25rem)] font-semibold leading-none tracking-[-0.04em] text-ink-primary num-tabular"
                 data-counter="46"
               >0</dd>
             </div>
-            <div class="reveal-init border-l border-line px-5 py-3">
+            <div class="reveal-init border-l border-line px-4 py-3 sm:px-5">
               <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Member since</dt>
               <dd class="mt-3 font-display text-[clamp(1.05rem,1.5vw,1.25rem)] font-semibold tracking-[-0.025em] text-ink-primary">
                 May / 2023
               </dd>
             </div>
-            <div class="reveal-init border-l border-line border-t px-5 py-3 first:border-l-0 first:pl-0">
+            <div class="reveal-init border-t border-line px-4 py-3 sm:px-5">
               <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Status</dt>
               <dd class="mt-3 inline-flex items-center gap-2 font-display text-[clamp(1.05rem,1.5vw,1.25rem)] font-semibold tracking-[-0.025em] text-ink-primary">
                 <span class="status-dot text-accent-success" aria-hidden="true" />
                 Hireable
               </dd>
             </div>
-            <div class="reveal-init border-l border-t border-line px-5 py-3">
+            <div class="reveal-init border-l border-t border-line px-4 py-3 sm:px-5">
               <dt class="font-mono text-mono-xs uppercase text-ink-subtle">Based in</dt>
               <dd class="mt-3 font-display text-[clamp(1.05rem,1.5vw,1.25rem)] font-semibold tracking-[-0.025em] text-ink-primary">
                 Indonesia
@@ -281,13 +281,12 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
           <li
             v-for="(b, i) in beliefs"
             :key="b.num"
-            class="reveal-init flex flex-col px-6 py-10 md:px-8 md:py-12"
+            class="reveal-init flex flex-col px-5 py-9 sm:px-6 md:px-8 md:py-12"
             :class="[
+              i > 0 ? 'border-t border-line' : '',
               i % 2 === 1 ? 'md:border-l md:border-line' : '',
               i >= 2 ? 'md:border-t md:border-line' : '',
-              i > 0 && i % 2 === 0 ? 'border-t border-line md:border-t-0' : '',
-              i === 1 ? 'border-t border-line md:border-t-0' : '',
-              i === 3 ? 'border-t border-line md:border-t md:border-line' : '',
+              i === 1 ? 'md:border-t-0' : '',
             ]"
           >
             <span class="font-mono text-mono-xs uppercase text-ink-subtle">
@@ -564,7 +563,7 @@ const npIdx = useTextRotator(nowPlaying.length, 3400);
           </div>
 
           <!-- Audio loop card -->
-          <aside class="reveal-init col-span-12 flex flex-col border-l border-line pl-0 lg:col-span-5 lg:pl-12">
+          <aside class="reveal-init col-span-12 flex flex-col pl-0 lg:col-span-5 lg:border-l lg:border-line lg:pl-12">
             <div class="flex items-baseline justify-between border-b border-line pb-5 font-mono text-mono-xs uppercase text-ink-subtle">
               <span class="inline-flex items-center gap-3">
                 <span class="text-ink-faint">B.05</span>

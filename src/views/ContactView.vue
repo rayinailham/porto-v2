@@ -50,7 +50,7 @@ const channels: Channel[] = [
   <div ref="root" class="relative">
     <!-- Hero -->
     <section
-      class="relative border-b border-line pt-[clamp(8rem,18vh,12rem)] pb-section-sm"
+      class="relative border-b border-line pt-[clamp(5.5rem,14vh,12rem)] pb-section-sm"
       data-reveal-group
     >
       <div class="shell-wide">
