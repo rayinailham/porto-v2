@@ -262,3 +262,43 @@
     scrollbar-width: none;
   }
 }
+
+/* ==========================================================================
+   Custom scrollbar — Swiss editorial dark theme
+   ========================================================================== */
+@layer base {
+  /* Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) var(--bg-base);
+  }
+
+  /* Webkit (Chrome, Safari, Edge) */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-base);
+    border-left: 1px solid var(--line-faint);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--line-strong);
+    border-radius: 0;
+    transition: background 200ms ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--ink-subtle);
+  }
+
+  ::-webkit-scrollbar-thumb:active {
+    background: var(--accent-warm);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: var(--bg-base);
+  }
+}
